@@ -32,8 +32,9 @@ public class Course {
     private Boolean isAvailable;
     private int totalQuotes;
     private int freeQuotes;
+//    private List<Review> reviews
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_course",
             joinColumns = @JoinColumn(name = "course_id"),
