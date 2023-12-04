@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -83,6 +84,8 @@ public class User implements UserDetails {
     }
 
     //todo lidhje me kurset
+    @ManyToMany(mappedBy = "registeredStudents")
+    private Set<Course> enrolledCourses;
     //todo lidhje me reviews
 
 }

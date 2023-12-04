@@ -24,14 +24,17 @@ public class Course {
     @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
+    @Column(name = "course_name")
     private String title;
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     //private List<Lecturer> lecturers;
+    @Column(name = "is_Available")
     private Boolean isAvailable;
     private int totalQuotes;
     private int freeQuotes;
+    private double courseRating;
 //    private List<Review> reviews
 
     @ManyToMany(cascade = CascadeType.ALL)
