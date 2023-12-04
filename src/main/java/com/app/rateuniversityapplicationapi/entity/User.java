@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "uuid", columnDefinition = "BINARY(16)")
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
     private String firstname;
@@ -45,6 +45,7 @@ public class User implements UserDetails {
     @Column(name = "profile_photo_url")
     private String profilePhotoURL;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
