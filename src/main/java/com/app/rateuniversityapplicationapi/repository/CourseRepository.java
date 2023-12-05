@@ -16,8 +16,8 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     )
     List<Course> getCourseByCourseName(String courseName);
 
-    @Query(value = "SELECT * FROM rate_university_db WHERE is_Available = ?1",
-                    nativeQuery = true
+    @Query(
+            value = "select u from Course u where u.isAvailable = ?1"
     )
     List<Course> getAllAvailableCourses(Boolean isAvailable);
 

@@ -34,5 +34,4 @@ public class CourseService implements ICourseService{
         return courseRepository.getTop10RatedCourses();
     }
 
-
 }
