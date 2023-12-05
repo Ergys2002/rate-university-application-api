@@ -13,6 +13,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService{
@@ -27,23 +29,27 @@ public class UserService implements IUserService{
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
-                .firstname(request.getFirstname())
-                .lastname(request.getLastname())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .birthDate(request.getBirthDate())
-                .phoneNumber(request.getPhoneNumber())
-                .profilePhotoURL(request.getProfilePhotoURL())
-                .role(Role.USER)
-                .build();
+        User fromDb = userRepository.findByEmail(request.getEmail());
 
-        userRepository.save(user);
+        if (fromDb == null) {
+            var user = User.builder()
+                    .firstname(request.getFirstname())
+                    .lastname(request.getLastname())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .birthDate(request.getBirthDate())
+                    .phoneNumber(request.getPhoneNumber())
+                    .profilePhotoURL(request.getProfilePhotoURL())
+                    .role(Role.USER)
+                    .build();
 
-        String jwtToken = jwtService.generateToken(user);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .build();
+            userRepository.save(user);
+            String jwtToken = jwtService.generateToken(user);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
+        return null;
     }
 
 
@@ -56,7 +62,7 @@ public class UserService implements IUserService{
                 )
         );
 
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new RuntimeException("User not found"));
+        var user = userRepository.findByEmail(request.getEmail());
 
         String jwtToken = jwtService.generateToken(user);
 
