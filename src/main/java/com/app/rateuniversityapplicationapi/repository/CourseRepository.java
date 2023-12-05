@@ -14,12 +14,15 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     @Query(
             "select u from Course u where u.title like %?1"
     )
-    public List<Course> getCourseByCourseName(String courseName);
+    List<Course> getCourseByCourseName(String courseName);
 
     @Query(value = "SELECT * FROM rate_university_db WHERE is_Available = ?1",
                     nativeQuery = true
     )
-    public List<Course> getAllAvailableCourses(Boolean isAvailable);
+    List<Course> getAllAvailableCourses(Boolean isAvailable);
+
+    @Query("from Course order by courseRating desc limit 10")
+    List<Course> getTop10RatedCourses();
 
 
 }

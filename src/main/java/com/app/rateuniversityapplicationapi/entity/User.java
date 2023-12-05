@@ -49,6 +49,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany(mappedBy = "registeredStudents")
+    private Set<Course> enrolledCourses;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -82,10 +85,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    //todo lidhje me kurset
-    @ManyToMany(mappedBy = "registeredStudents")
-    private Set<Course> enrolledCourses;
-    //todo lidhje me reviews
-
 }

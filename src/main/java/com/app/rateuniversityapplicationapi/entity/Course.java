@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,13 +30,19 @@ public class Course {
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    //private List<Lecturer> lecturers;
     @Column(name = "is_Available")
     private Boolean isAvailable;
     private int totalQuotes;
     private int freeQuotes;
     private double courseRating;
-//    private List<Review> reviews
+
+    @Column(name = "lecturer_id")
+    protected UUID lecturerId;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "lecturer_id", updatable = false,insertable = false)
+    private Lecturer lecturer;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
