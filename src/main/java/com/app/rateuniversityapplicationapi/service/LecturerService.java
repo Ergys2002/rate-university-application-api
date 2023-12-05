@@ -16,15 +16,16 @@ public class LecturerService implements ILecturerService {
 
 
 
-    private LecturerRepository lecturerRepository;
+    private final LecturerRepository lecturerRepository;
 
     @Override
     public List<LecturerDTO> getAllLecturers() {
-        return null;
+
+        return lecturerRepository.getAll();
     }
 
     @Override
     public LecturerDTO getLecturerById(UUID id) {
-        return null;
+          return lecturerRepository.getLecturerById(id);
     }
 }

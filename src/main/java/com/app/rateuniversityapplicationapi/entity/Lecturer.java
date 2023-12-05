@@ -1,6 +1,5 @@
 package com.app.rateuniversityapplicationapi.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +9,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Set;
 import java.util.UUID;
+
+//todo fshi databasen edhe ndrysho firstname dhe lastname
 
 @Entity
 @Data
@@ -33,7 +34,6 @@ public class Lecturer {
     @Column(name="profile_picture")
     private String profilePicture;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "lecturer")
     private Set<Course> courses;
 
