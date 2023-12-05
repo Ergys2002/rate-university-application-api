@@ -5,6 +5,7 @@ import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
 import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
 import com.app.rateuniversityapplicationapi.service.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,12 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
-        return ResponseEntity.ok(userService.register(request));
+        AuthenticationResponse response = userService.register(request);
+        if (response == null){
+            return new ResponseEntity("User Already Exists", HttpStatus.CONFLICT);
+        }else {
+            return ResponseEntity.ok(response);
+        }
     }
 
     @PostMapping("/login")

@@ -24,7 +24,7 @@ public class CourseController {
     }
 
     @GetMapping("/{course-name}")
-    public List<Course> getCoursesByName(@PathVariable String courseName){
+    public List<Course> getCoursesByName(@PathVariable("course-name") String courseName){
         return courseService.getCoursesByName(courseName);
     }
 
