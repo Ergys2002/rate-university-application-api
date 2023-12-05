@@ -1,20 +1,18 @@
 package com.app.rateuniversityapplicationapi.service;
 
-import com.app.rateuniversityapplicationapi.entity.CompareCoursesByRateDesc;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CourseService implements ICourseService{
-    @Autowired
-    CourseRepository courseRepository;
+
+    private final CourseRepository courseRepository;
 
     @Override
     public List<Course> getAllCourses(){
@@ -33,19 +31,7 @@ public class CourseService implements ICourseService{
 
     @Override
     public List<Course> getTopTenRatedCourses() {
-        List<Course> courses = courseRepository.findAll();
-        List<Course> topTenCourses = new ArrayList<>();
-
-        courses.sort(new CompareCoursesByRateDesc());
-
-        int courseIndex = 0;
-
-        while (!courses.isEmpty()){
-            topTenCourses.add(courses.get(courseIndex));
-            courseIndex++;
-        }
-
-        return topTenCourses;
+        return courseRepository.getTop10RatedCourses();
     }
 
 

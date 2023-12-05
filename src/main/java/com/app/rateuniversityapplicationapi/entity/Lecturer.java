@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -31,8 +33,8 @@ public class Lecturer {
     @Column(name="profile_picture")
     private String profilePicture;
 
-//     One Lecturer can have many Courses
-//    @OneToMany(mappedBy = "lecturer", cascade = CascadeType.ALL)
-//    private List<Course> courses;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "lecturer")
+    private Set<Course> courses;
 
 }
