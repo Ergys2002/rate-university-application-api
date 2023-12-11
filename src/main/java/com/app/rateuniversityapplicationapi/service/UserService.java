@@ -7,12 +7,16 @@ import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
 import com.app.rateuniversityapplicationapi.entity.Role;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
 import java.util.Optional;
 
 @Service
@@ -28,8 +32,10 @@ public class UserService implements IUserService{
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthenticationResponse register(RegisterRequest request) {
+    public ResponseEntity<AuthenticationResponse> register(RegisterRequest request) {
+
         User fromDb = userRepository.findByEmail(request.getEmail());
+
 
         if (fromDb == null) {
             var user = User.builder()
@@ -45,11 +51,18 @@ public class UserService implements IUserService{
 
             userRepository.save(user);
             String jwtToken = jwtService.generateToken(user);
-            return AuthenticationResponse.builder()
+            return new ResponseEntity<>(AuthenticationResponse.builder()
                     .token(jwtToken)
-                    .build();
+                    .message("Registered Succesfully")
+                    .validUntil(
+                            jwtService.extractAllClaims(jwtToken)
+                                    .getExpiration()
+                                    .toInstant()
+                                    .atZone(ZoneId.systemDefault())
+                                    .toLocalDate())
+                    .build(), HttpStatus.ACCEPTED);
         }
-        return null;
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 

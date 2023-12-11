@@ -23,10 +23,19 @@ public class Review {
     private UUID id;
 
     private double rating;
+    @Column(name = "course_review")
     private String courseReview;
-    private LocalDate date;
+
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_reviews")
     private User user;
+
+    @PrePersist
+    public void setCreatedAt() {
+        createdAt = LocalDate.now();
+    }
+
 }

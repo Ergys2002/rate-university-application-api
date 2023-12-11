@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.repository;
 
+import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
 import com.app.rateuniversityapplicationapi.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,6 @@ import java.util.UUID;
 public interface ReviewRepository extends JpaRepository<Review, UUID> {
 
     @Query(value = "SELECT u FROM Review u WHERE u.user.id = ?1")
-    List<Review> findReviewByUserUUID(UUID uuid);
+    List<ReviewResponse> findReviewByUserUUID(UUID uuid);
 
 }

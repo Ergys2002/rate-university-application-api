@@ -25,12 +25,11 @@ public class Course {
     @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
 
-    @Column(name = "course_name")
     private String title;
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    @Column(name = "is_Available")
+    @Column(name = "is_available")
     private Boolean isAvailable;
     private int totalQuotes;
     private int freeQuotes;

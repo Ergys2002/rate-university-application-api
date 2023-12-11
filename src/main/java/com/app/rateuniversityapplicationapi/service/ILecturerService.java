@@ -1,15 +1,15 @@
 package com.app.rateuniversityapplicationapi.service;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerDTO;
+import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ILecturerService {
 
-    List<LecturerDTO> getAllLecturers();
+    List<LecturerResponse> getAllLecturers();
 
-    LecturerDTO getLecturerById(UUID id);
+    LecturerResponse getLecturerById(UUID id);
 
 }
 

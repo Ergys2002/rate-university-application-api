@@ -1,10 +1,8 @@
 package com.app.rateuniversityapplicationapi.controller;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerDTO;
+import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
 import com.app.rateuniversityapplicationapi.service.ILecturerService;
-import com.app.rateuniversityapplicationapi.service.LecturerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +19,15 @@ public class LecturerController {
 
     // Endpoint to get all lecturers
     @GetMapping
-    public ResponseEntity<List<LecturerDTO>> getAllLecturers() {
-        List<LecturerDTO> lecturers = lecturerService.getAllLecturers();
+    public ResponseEntity<List<LecturerResponse>> getAllLecturers() {
+        List<LecturerResponse> lecturers = lecturerService.getAllLecturers();
         return new ResponseEntity<>(lecturers, HttpStatus.OK);
     }
 
     // Endpoint to get a specific lecturer by ID
     @GetMapping("/{id}")
-    public ResponseEntity<LecturerDTO> getLecturerById(@PathVariable UUID id) {
-        LecturerDTO lecturer = lecturerService.getLecturerById(id);
+    public ResponseEntity<LecturerResponse> getLecturerById(@PathVariable UUID id) {
+        LecturerResponse lecturer = lecturerService.getLecturerById(id);
         if (lecturer != null) {
             return new ResponseEntity<>(lecturer, HttpStatus.OK);
         } else {

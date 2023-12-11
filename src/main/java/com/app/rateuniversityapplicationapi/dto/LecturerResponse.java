@@ -1,8 +1,6 @@
 package com.app.rateuniversityapplicationapi.dto;
 
-import java.util.UUID;
-
-public interface LecturerDTO {
+public interface LecturerResponse {
 
      String getId();
      String getFirstName();

@@ -1,5 +1,7 @@
 package com.app.rateuniversityapplicationapi.controller;
 
+import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
+import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
 import com.app.rateuniversityapplicationapi.service.IReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +20,14 @@ public class ReviewController {
     private final IReviewService reviewService;
 
     @GetMapping
-    public ResponseEntity<List<ReviewDTO>> getAllReviews() {
-        List<ReviewDTO> reviews = lecturerService.getAllReviews();
+    public ResponseEntity<List<ReviewResponse>> getAllReviews() {
+        List<ReviewResponse> reviews = reviewService.getAllReviews();
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @PostMapping("/save-review")
-    public void saveReview(@RequestBody ReviewRequest request){
-        return ResponseEntity.ok(reviewService.saveReview(request));
+    public ResponseEntity<ReviewResponse> saveReview(@RequestBody ReviewRequest request){
+        return reviewService.saveReview(request);
     }
 }
+

@@ -1,9 +1,8 @@
 package com.app.rateuniversityapplicationapi.repository;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerDTO;
+import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.app.rateuniversityapplicationapi.entity.Lecturer;
 
@@ -14,7 +13,7 @@ import java.util.UUID;
 public interface LecturerRepository extends JpaRepository<Lecturer, UUID> {
 
     @Query("SELECT u FROM Lecturer u")
-    List<LecturerDTO> getAll();
+    List<LecturerResponse> getAll();
 
-    LecturerDTO getLecturerById(@Param("id") UUID id);
+    LecturerResponse getLecturerById(UUID id);
 }

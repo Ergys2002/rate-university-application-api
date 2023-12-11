@@ -21,12 +21,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
-        AuthenticationResponse response = userService.register(request);
-        if (response == null){
-            return new ResponseEntity("User Already Exists", HttpStatus.CONFLICT);
-        }else {
-            return ResponseEntity.ok(response);
-        }
+        return userService.register(request);
     }
 
     @PostMapping("/login")
