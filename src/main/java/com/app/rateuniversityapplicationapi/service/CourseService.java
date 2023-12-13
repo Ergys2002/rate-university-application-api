@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +33,11 @@ public class CourseService implements ICourseService{
     @Override
     public List<Course> getTopTenRatedCourses() {
         return courseRepository.getTop10RatedCourses();
+    }
+
+    @Override
+    public Course getCourseById(UUID courseId) {
+        return courseRepository.getCourseById(courseId);
     }
 
     @Override

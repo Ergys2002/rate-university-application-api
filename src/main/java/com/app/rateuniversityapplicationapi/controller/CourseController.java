@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/courses")
@@ -23,6 +24,11 @@ public class CourseController {
     @GetMapping("/{course-name}")
     public List<Course> getCoursesByName(@PathVariable("course-name") String courseName){
         return courseService.getCoursesByName(courseName);
+    }
+
+    @GetMapping("/uuid/{courseId}")
+    public Course getCoursesById(@PathVariable("courseId") String courseId){
+        return courseService.getCourseById(UUID.fromString(courseId));
     }
 
     @GetMapping("/available-courses")

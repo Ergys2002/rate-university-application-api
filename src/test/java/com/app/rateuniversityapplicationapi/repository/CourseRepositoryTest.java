@@ -1,6 +1,7 @@
 package com.app.rateuniversityapplicationapi.repository;
 
 import com.app.rateuniversityapplicationapi.entity.Course;
+import com.app.rateuniversityapplicationapi.entity.Lecturer;
 import com.app.rateuniversityapplicationapi.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +22,8 @@ class CourseRepositoryTest {
 
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    LecturerRepository lecturerRepository;
 
     @Test
     public void saveCourseWithUser(){
@@ -36,6 +38,31 @@ class CourseRepositoryTest {
                 .registeredStudents(users)
                 .title("TGJP")
                 .description("Test")
+                .build();
+
+        courseRepository.save(course);
+    }
+
+    @Test
+    public void saveCourse(){
+        Lecturer lecturer = Lecturer.builder()
+                .id(UUID.randomUUID())
+                .email("lektor1@gmail.com")
+                .firstName("lektor1")
+                .lastName("TestLektori")
+                .rating(100)
+                .build();
+        lecturerRepository.save(lecturer);
+        Course course = Course.builder()
+                .title("Bazat e informatikes")
+                .description("Teknologjia është aplikimi i njohurive konceptuale për arritjen e qëllimeve praktike, veçanërisht në mënyrë të riprodhueshme.")
+                .totalQuotes(100)
+                .freeQuotes(22)
+                .courseRating(25.2)
+                .lecturer(lecturer)
+                .endDate(LocalDateTime.now())
+                .startDate(LocalDateTime.of(2001,12,5,7,1))
+                .isAvailable(true)
                 .build();
 
         courseRepository.save(course);

@@ -10,6 +10,9 @@ import java.util.UUID;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, UUID> {
+
+    Course getCourseById(UUID courseId);
+
     //comment
     @Query(
             "select u from Course u where u.title like %?1"
