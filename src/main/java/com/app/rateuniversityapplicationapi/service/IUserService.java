@@ -9,4 +9,6 @@ public interface IUserService {
     AuthenticationResponse authenticate(AuthenticationRequest request);
 
     ResponseEntity<AuthenticationResponse> register(RegisterRequest request);
+
+    int getNumberOfStudents();
 }

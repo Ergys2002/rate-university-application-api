@@ -35,4 +35,9 @@ public class CourseController {
         return courseService.getTopTenRatedCourses();
     }
 
+    @GetMapping("/number-of-courses")
+    public int getNumberOfCourses(){
+        return courseService.getNumberOfCourses();
+    }
+
 }

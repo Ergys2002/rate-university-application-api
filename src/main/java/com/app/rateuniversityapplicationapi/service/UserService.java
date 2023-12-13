@@ -7,7 +7,6 @@ import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
 import com.app.rateuniversityapplicationapi.entity.Role;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +43,6 @@ public class UserService implements IUserService{
                     .password(passwordEncoder.encode(request.getPassword()))
                     .birthDate(request.getBirthDate())
                     .phoneNumber(request.getPhoneNumber())
-                    .profilePhotoURL(request.getProfilePhotoURL())
                     .role(Role.USER)
                     .build();
 
@@ -65,6 +62,11 @@ public class UserService implements IUserService{
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    public int getNumberOfStudents() {
+        return userRepository.getNumberOfStudents();
+    }
+
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -79,8 +81,15 @@ public class UserService implements IUserService{
 
         String jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
+        return new ResponseEntity<>(AuthenticationResponse.builder()
                 .token(jwtToken)
-                .build();
+                .message("Logged in Succesfully")
+                .validUntil(
+                        jwtService.extractAllClaims(jwtToken)
+                                .getExpiration()
+                                .toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate())
+                .build(), HttpStatus.ACCEPTED).getBody();
     }
 }

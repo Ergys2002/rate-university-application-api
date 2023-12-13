@@ -2,6 +2,7 @@ package com.app.rateuniversityapplicationapi.controller;
 
 import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
 import com.app.rateuniversityapplicationapi.service.ILecturerService;
+import com.app.rateuniversityapplicationapi.service.LecturerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,10 @@ public class LecturerController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/number-of-lecturers")
+    public int getNumberOfLecturers(){
+        return lecturerService.getNumberOfLecturers();
     }
 }

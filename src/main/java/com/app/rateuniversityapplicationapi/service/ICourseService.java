@@ -13,4 +13,6 @@ public interface ICourseService {
     public List<Course> getAllAvailableCourses();
 
     public List<Course> getTopTenRatedCourses();
+
+    int getNumberOfCourses();
 }

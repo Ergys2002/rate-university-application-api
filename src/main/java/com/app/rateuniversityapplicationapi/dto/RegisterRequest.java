@@ -19,5 +19,4 @@ public class RegisterRequest {
     private String password;
     private LocalDate birthDate;
     private String phoneNumber;
-    private String profilePhotoURL;
 }

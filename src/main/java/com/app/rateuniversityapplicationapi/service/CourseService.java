@@ -34,4 +34,9 @@ public class CourseService implements ICourseService{
         return courseRepository.getTop10RatedCourses();
     }
 
+    @Override
+    public int getNumberOfCourses() {
+        return courseRepository.getNumberOfCourses();
+    }
+
 }

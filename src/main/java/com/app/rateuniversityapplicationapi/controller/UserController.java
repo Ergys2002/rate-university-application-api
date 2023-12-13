@@ -7,25 +7,27 @@ import com.app.rateuniversityapplicationapi.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class UserController {
 
     private final IUserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/user/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
         return userService.register(request);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/user/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(userService.authenticate(request));
+    }
+
+    @GetMapping("/students/number-of-students")
+    public int getNumberOfStudents(){
+        return userService.getNumberOfStudents();
     }
 }

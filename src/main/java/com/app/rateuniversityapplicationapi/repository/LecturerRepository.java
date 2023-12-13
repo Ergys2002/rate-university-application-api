@@ -16,4 +16,8 @@ public interface LecturerRepository extends JpaRepository<Lecturer, UUID> {
     List<LecturerResponse> getAll();
 
     LecturerResponse getLecturerById(UUID id);
+
+    @Query("SELECT COUNT(l.id) FROM Lecturer l")
+    int getNumberOfLecturers();
+
 }

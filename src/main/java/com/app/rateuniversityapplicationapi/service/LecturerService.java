@@ -12,7 +12,6 @@ import java.util.UUID;
 public class LecturerService implements ILecturerService {
 
 
-
     private final LecturerRepository lecturerRepository;
 
     @Override
@@ -24,5 +23,10 @@ public class LecturerService implements ILecturerService {
     @Override
     public LecturerResponse getLecturerById(UUID id) {
           return lecturerRepository.getLecturerById(id);
+    }
+
+    @Override
+    public int getNumberOfLecturers() {
+        return lecturerRepository.getNumberOfLecturers();
     }
 }

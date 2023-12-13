@@ -36,6 +36,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/api/user/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/user/register").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/students/number-of-students").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/lecturers/number-of-lecturers").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/courses/number-of-courses").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
