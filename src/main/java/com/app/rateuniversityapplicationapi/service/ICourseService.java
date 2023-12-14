@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface ICourseService {
 
+    List<Course> findAllByPageNumber(int page);
+
     public List<Course> getAllCourses();
 
     public List<Course> getCoursesByName(String name);

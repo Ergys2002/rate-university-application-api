@@ -4,6 +4,8 @@ import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,14 @@ import java.util.UUID;
 public class CourseService implements ICourseService{
 
     private final CourseRepository courseRepository;
+
+    @Override
+    public List<Course> findAllByPageNumber(int page) {
+        Pageable pageRequest = PageRequest.of(page,6);
+
+        return courseRepository.findAll(pageRequest)
+                .getContent();
+    }
 
     @Override
     public List<Course> getAllCourses(){

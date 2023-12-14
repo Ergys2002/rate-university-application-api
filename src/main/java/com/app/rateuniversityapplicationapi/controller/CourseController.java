@@ -31,6 +31,11 @@ public class CourseController {
         return courseService.getCourseById(UUID.fromString(courseId));
     }
 
+    @GetMapping("page/{pageNumber}")
+    public List<Course> getCourseByPageNumber(@PathVariable("pageNumber") int pageNumber){
+        return courseService.findAllByPageNumber(pageNumber);
+    }
+
     @GetMapping("/available-courses")
     public List<Course> getAllAvailableCourses(){
         return courseService.getAllAvailableCourses();

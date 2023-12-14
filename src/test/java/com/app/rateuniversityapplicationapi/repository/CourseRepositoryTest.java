@@ -9,7 +9,10 @@ import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,25 +50,33 @@ class CourseRepositoryTest {
     public void saveCourse(){
         Lecturer lecturer = Lecturer.builder()
                 .id(UUID.randomUUID())
-                .email("lektor1@gmail.com")
-                .firstName("lektor1")
-                .lastName("TestLektori")
-                .rating(100)
+                .email("RandomLektor")
+                .firstName("RandomFirstName")
+                .lastName("RandomLastName")
+                .rating(92)
                 .build();
         lecturerRepository.save(lecturer);
         Course course = Course.builder()
-                .title("Bazat e informatikes")
-                .description("Teknologjia është aplikimi i njohurive konceptuale për arritjen e qëllimeve praktike, veçanërisht në mënyrë të riprodhueshme.")
-                .totalQuotes(100)
+                .title("RandomTitle")
+                .description("In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying")
+                .totalQuotes(85)
                 .freeQuotes(22)
-                .courseRating(25.2)
+                .courseRating(27.3)
                 .lecturer(lecturer)
-                .endDate(LocalDateTime.now())
-                .startDate(LocalDateTime.of(2001,12,5,7,1))
+                .lecturerId(lecturer.getId())
+                .endDate(LocalDate.now())
+                .startDate(LocalDate.of(2024,12,14))
                 .isAvailable(true)
                 .build();
-
         courseRepository.save(course);
+    }
+
+    @Test
+    public void findAllByPageNumber(int page) {
+        Pageable pageRequest = PageRequest.of(1,6);
+
+        System.out.println( courseRepository.findAll(pageRequest)
+                .getContent() );
     }
 
     @Test
