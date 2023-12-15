@@ -33,6 +33,7 @@ public class Lecturer {
     private double rating;
     @Column(name="profile_picture")
     private String profilePicture;
+    private String description;
 
     @OneToMany(mappedBy = "lecturer")
     private Set<Course> courses;

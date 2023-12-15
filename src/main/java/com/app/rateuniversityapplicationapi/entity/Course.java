@@ -31,7 +31,7 @@ public class Course {
     private LocalDate startDate;
     private LocalDate endDate;
     @Column(name = "is_available")
-    private Boolean isAvailable;
+    private boolean isAvailable;
     private int totalQuotes;
     private int freeQuotes;
     private double courseRating;

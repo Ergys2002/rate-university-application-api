@@ -12,5 +12,7 @@ public interface ILecturerService {
     LecturerResponse getLecturerById(UUID id);
 
     int getNumberOfLecturers();
+
+    List<String> getLecturerIds();
 }
 

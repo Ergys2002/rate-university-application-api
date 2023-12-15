@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.service;
 
+import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 
 import java.util.List;
@@ -9,15 +10,15 @@ public interface ICourseService {
 
     List<Course> findAllByPageNumber(int page);
 
-    public List<Course> getAllCourses();
+    List<Course> getAllCourses();
 
-    public List<Course> getCoursesByName(String name);
+    List<Course> getCoursesByName(String name);
 
-    public List<Course> getAllAvailableCourses();
+    List<Course> getAllAvailableCourses();
 
-    public List<Course> getTopTenRatedCourses();
+    List<Course> getTopTenRatedCourses();
 
-    public Course getCourseById(UUID courseId);
+   CourseResponse getCourseById(UUID courseId);
 
     int getNumberOfCourses();
 }

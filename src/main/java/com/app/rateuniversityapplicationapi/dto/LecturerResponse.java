@@ -1,5 +1,8 @@
 package com.app.rateuniversityapplicationapi.dto;
 
+import lombok.Data;
+
+
 public interface LecturerResponse {
 
      String getId();
@@ -8,4 +11,5 @@ public interface LecturerResponse {
      String getEmail();
      double getRating();
      String getProfilePicture();
+
 }

@@ -1,8 +1,10 @@
 package com.app.rateuniversityapplicationapi.controller;
 
+import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.service.CourseService;
 import com.app.rateuniversityapplicationapi.service.ICourseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,10 +13,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/courses")
+@RequiredArgsConstructor
 public class CourseController {
 
-    @Autowired
-    private ICourseService courseService;
+    private final ICourseService courseService;
 
     @GetMapping
     public List<Course> getAllCourses(){
@@ -26,9 +28,9 @@ public class CourseController {
         return courseService.getCoursesByName(courseName);
     }
 
-    @GetMapping("/uuid/{courseId}")
-    public Course getCoursesById(@PathVariable("courseId") String courseId){
-        return courseService.getCourseById(UUID.fromString(courseId));
+    @GetMapping("/details")
+    public CourseResponse getCoursesById(@RequestParam("id") UUID courseId){
+        return courseService.getCourseById(courseId);
     }
 
     @GetMapping("page/{pageNumber}")

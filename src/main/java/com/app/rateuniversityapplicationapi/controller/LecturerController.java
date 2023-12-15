@@ -40,4 +40,9 @@ public class LecturerController {
     public int getNumberOfLecturers(){
         return lecturerService.getNumberOfLecturers();
     }
+
+    @GetMapping("/lecturer-ids")
+    public List<String> getLecturerIds(){
+        return lecturerService.getLecturerIds();
+    }
 }
