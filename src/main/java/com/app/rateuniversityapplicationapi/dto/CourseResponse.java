@@ -11,6 +11,7 @@ public interface CourseResponse {
     boolean isAvailable();
     int getTotalQuotes();
     int getFreeQuotes();
+    double getRating();
     String getLecturerId();
 
 }

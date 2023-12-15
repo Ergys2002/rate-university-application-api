@@ -93,6 +93,11 @@ public class CourseService implements ICourseService{
             }
 
             @Override
+            public double getRating() {
+                return courseFromDb.getCourseRating();
+            }
+
+            @Override
             public String getLecturerId() {
                 return courseFromDb.getLecturerId().toString();
             }
