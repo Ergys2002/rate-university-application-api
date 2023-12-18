@@ -33,7 +33,8 @@ public class Course {
     @Column(name = "is_available")
     private boolean isAvailable;
     private int totalQuotes;
-    private int freeQuotes;
+    @Column(name = "enrolle_students")
+    private int enrolledStudents;
     private double courseRating;
 
     @Column(name = "lecturer_id")

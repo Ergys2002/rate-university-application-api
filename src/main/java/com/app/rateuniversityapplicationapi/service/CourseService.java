@@ -89,7 +89,7 @@ public class CourseService implements ICourseService{
 
             @Override
             public int getFreeQuotes() {
-                return courseFromDb.getFreeQuotes();
+                return courseFromDb.getEnrolledStudents();
             }
 
             @Override

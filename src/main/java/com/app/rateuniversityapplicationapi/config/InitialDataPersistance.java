@@ -199,8 +199,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 1, 1),
                 LocalDate.of(2023, 2, 28),
                 true,
-                100,
-                50,
+                10,
                 UUID.fromString(lecturerIds.get(0))
         );
 
@@ -210,8 +209,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 3, 1),
                 LocalDate.of(2023, 4, 30),
                 true,
-                120,
-                60,
+                12,
                 UUID.fromString(lecturerIds.get(1))
         );
 
@@ -221,8 +219,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 5, 1),
                 LocalDate.of(2023, 6, 30),
                 true,
-                80,
-                40,
+                8,
                 UUID.fromString(lecturerIds.get(2))
         );
 
@@ -232,8 +229,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 7, 1),
                 LocalDate.of(2023, 8, 31),
                 true,
-                90,
-                45,
+                9,
                UUID.fromString(lecturerIds.get(3))
 
        );
@@ -244,8 +240,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 9, 1),
                 LocalDate.of(2023, 10, 31),
                 true,
-                110,
-                55,
+                11,
                 UUID.fromString(lecturerIds.get(4))
         );
 
@@ -255,8 +250,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 11, 1),
                 LocalDate.of(2023, 12, 31),
                 true,
-                95,
-                48,
+                9,
                 UUID.fromString(lecturerIds.get(5))
         );
 
@@ -266,8 +260,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 1, 1),
                 LocalDate.of(2024, 2, 29),
                 true,
-                105,
-                52,
+                10,
                 UUID.fromString(lecturerIds.get(6))
         );
 
@@ -277,8 +270,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 3, 1),
                 LocalDate.of(2024, 4, 30),
                 true,
-                115,
-                57,
+                11,
                 UUID.fromString(lecturerIds.get(7))
         );
 
@@ -288,8 +280,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 5, 1),
                 LocalDate.of(2024, 6, 30),
                 true,
-                85,
-                42,
+                8,
                 UUID.fromString(lecturerIds.get(8))
         );
 
@@ -299,8 +290,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 7, 1),
                 LocalDate.of(2024, 8, 31),
                 true,
-                125,
-                62,
+                12,
                 UUID.fromString(lecturerIds.get(9))
         );
 
@@ -311,8 +301,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 9, 1),
                 LocalDate.of(2024, 10, 31),
                 true,
-                130,
-                65,
+                13,
                 UUID.fromString(lecturerIds.get(9))
         );
 
@@ -322,8 +311,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 11, 1),
                 LocalDate.of(2024, 12, 31),
                 true,
-                105,
-                53,
+                10,
                 UUID.fromString(lecturerIds.get(8))
         );
 
@@ -333,8 +321,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 1, 1),
                 LocalDate.of(2025, 2, 28),
                 true,
-                95,
-                47,
+                9,
                 UUID.fromString(lecturerIds.get(7))
        );
 
@@ -344,8 +331,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 3, 1),
                 LocalDate.of(2025, 4, 30),
                 true,
-                110,
-                55,
+                11,
                 UUID.fromString(lecturerIds.get(6))
         );
 
@@ -355,8 +341,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 5, 1),
                 LocalDate.of(2025, 6, 30),
                 true,
-                85,
-                42,
+                8,
                 UUID.fromString(lecturerIds.get(5))
         );
 
@@ -366,8 +351,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 7, 1),
                 LocalDate.of(2025, 8, 31),
                 true,
-                120,
-                60,
+                12,
                 UUID.fromString(lecturerIds.get(4))
         );
 
@@ -377,8 +361,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 9, 1),
                 LocalDate.of(2025, 10, 31),
                 true,
-                100,
-                50,
+                10,
                 UUID.fromString(lecturerIds.get(3))
         );
 
@@ -388,8 +371,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 11, 1),
                 LocalDate.of(2025, 12, 31),
                 true,
-                115,
-                57,
+                11,
                 UUID.fromString(lecturerIds.get(2))
         );
 
@@ -399,8 +381,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2026, 1, 1),
                 LocalDate.of(2026, 2, 28),
                 true,
-                105,
-                52,
+                10,
                 UUID.fromString(lecturerIds.get(1))
         );
 
@@ -410,8 +391,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2026, 3, 1),
                 LocalDate.of(2026, 4, 30),
                 true,
-                125,
-                62,
+                12,
                 UUID.fromString(lecturerIds.get(0))
         );
 
@@ -452,7 +432,6 @@ public class InitialDataPersistance implements CommandLineRunner {
             LocalDate endDate,
             boolean isAvailable,
             int totalQuotes,
-            int freeQuotes,
             UUID lecturerId
     ){
         Course course = Course.builder()
@@ -462,7 +441,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 .endDate(endDate)
                 .isAvailable(isAvailable)
                 .totalQuotes(totalQuotes)
-                .freeQuotes(freeQuotes)
+                .enrolledStudents(0)
                 .courseRating(-1)
                 .lecturerId(lecturerId)
                 .build();
