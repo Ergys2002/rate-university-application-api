@@ -3,6 +3,8 @@ package com.app.rateuniversityapplicationapi.controller;
 import com.app.rateuniversityapplicationapi.dto.AuthenticationRequest;
 import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
 import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
+import com.app.rateuniversityapplicationapi.dto.UserResponse;
+import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,4 +32,7 @@ public class UserController {
     public int getNumberOfStudents(){
         return userService.getNumberOfStudents();
     }
+
+    @GetMapping("/user/logged-in-user")
+    public UserResponse getLoggedInUser(){return userService.getCurrentUser();}
 }

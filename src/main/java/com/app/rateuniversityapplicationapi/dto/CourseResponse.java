@@ -10,7 +10,7 @@ public interface CourseResponse {
     LocalDate getEndDate();
     boolean isAvailable();
     int getTotalQuotes();
-    int getFreeQuotes();
+    int getEnrolledStudents();
     double getRating();
     String getLecturerId();
 

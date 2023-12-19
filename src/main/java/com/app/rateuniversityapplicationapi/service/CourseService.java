@@ -18,6 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -119,7 +120,7 @@ public class CourseService implements ICourseService{
             }
 
             @Override
-            public int getFreeQuotes() {
+            public int getEnrolledStudents() {
                 return courseFromDb.getEnrolledStudents();
             }
 
@@ -133,6 +134,61 @@ public class CourseService implements ICourseService{
                 return courseFromDb.getLecturerId().toString();
             }
         };
+    }
+
+    public List<CourseResponse> getAllCoursesOfALecturer(String id){
+        List<Course> coursesFromDb = courseRepository.findCoursesByLecturerId(UUID.fromString(id));
+       return coursesFromDb.stream().map(course -> new CourseResponse() {
+            @Override
+            public String getId() {
+                return course.getId().toString();
+            }
+
+            @Override
+            public String getTitle() {
+                return course.getTitle();
+            }
+
+            @Override
+            public String getDescription() {
+                return course.getDescription();
+            }
+
+            @Override
+            public LocalDate getStartDate() {
+                return course.getStartDate();
+            }
+
+            @Override
+            public LocalDate getEndDate() {
+                return course.getEndDate();
+            }
+
+            @Override
+            public boolean isAvailable() {
+                return course.isAvailable();
+            }
+
+            @Override
+            public int getTotalQuotes() {
+                return course.getTotalQuotes();
+            }
+
+            @Override
+            public int getEnrolledStudents() {
+                return course.getEnrolledStudents();
+            }
+
+            @Override
+            public double getRating() {
+                return course.getCourseRating();
+            }
+
+           @Override
+           public String getLecturerId() {
+               return course.getLecturerId().toString();
+           }
+       }).collect(Collectors.toList());
     }
 
     @Override

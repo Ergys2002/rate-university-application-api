@@ -33,4 +33,6 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     int getNumberOfCourses();
 
     Course getCourseByTitleEqualsIgnoreCaseAndDescriptionEqualsIgnoreCaseAndLecturerId(String title, String description, UUID lecturerId);
+
+    List<Course> findCoursesByLecturerId(UUID lecturerId);
 }

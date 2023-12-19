@@ -27,6 +27,8 @@ public interface ICourseService {
 
    CourseResponse getCourseById(UUID courseId);
 
+   List<CourseResponse> getAllCoursesOfALecturer(String id);
+
     int getNumberOfCourses();
 
     List<StudentResponse> getUsersByEnrolledCourseContains(UUID courseUUID);

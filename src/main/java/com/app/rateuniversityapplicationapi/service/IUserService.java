@@ -5,6 +5,8 @@ import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
 import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.User;
+import com.app.rateuniversityapplicationapi.dto.UserResponse;
+import com.app.rateuniversityapplicationapi.entity.User;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,4 +21,6 @@ public interface IUserService {
 
     User findUserById(UUID uuid);
 
+
+    UserResponse getCurrentUser();
 }

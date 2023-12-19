@@ -76,4 +76,11 @@ public class CourseController {
         return courseService.getUsersByEnrolledCourseContains(UUID.fromString(uuid));
     }
 
+    @GetMapping("/all-courses-of-a-lecturer")
+    public List<CourseResponse> getAllCoursesOfAlecturer(@RequestParam("id") String id){
+
+        return courseService.getAllCoursesOfALecturer(id);
+
+    }
+
 }
