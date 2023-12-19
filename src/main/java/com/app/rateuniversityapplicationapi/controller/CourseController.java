@@ -1,11 +1,14 @@
 package com.app.rateuniversityapplicationapi.controller;
 
 import com.app.rateuniversityapplicationapi.dto.CourseResponse;
+import com.app.rateuniversityapplicationapi.dto.EnrollRequest;
+import com.app.rateuniversityapplicationapi.dto.StudentResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.service.CourseService;
 import com.app.rateuniversityapplicationapi.service.ICourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +24,13 @@ public class CourseController {
     @GetMapping
     public List<Course> getAllCourses(){
         return courseService.getAllCourses();
+    }
+
+    @PostMapping("/isEnrolled")
+    public boolean isEnrolled(@RequestBody EnrollRequest enrollRequest){
+       return courseService.isEnrolled(
+               UUID.fromString(enrollRequest.getCourseId()),
+               enrollRequest.getEmail());
     }
 
     @GetMapping("/{course-name}")
@@ -51,6 +61,19 @@ public class CourseController {
     @GetMapping("/number-of-courses")
     public int getNumberOfCourses(){
         return courseService.getNumberOfCourses();
+    }
+
+    @PostMapping(path = "/enroll",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addStudent(@RequestBody EnrollRequest enrollRequest){
+        courseService.appendUser(
+                enrollRequest.getEmail(),
+                UUID.fromString(enrollRequest.getCourseId()));
+    }
+
+    @GetMapping("/enrolled-students/{courseUUID}")
+    public List<StudentResponse> getAllUsersByEnrolledCourse(
+            @PathVariable("courseUUID") String uuid){
+        return courseService.getUsersByEnrolledCourseContains(UUID.fromString(uuid));
     }
 
 }

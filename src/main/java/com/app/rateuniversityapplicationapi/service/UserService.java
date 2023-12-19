@@ -4,6 +4,7 @@ import com.app.rateuniversityapplicationapi.config.JwtService;
 import com.app.rateuniversityapplicationapi.dto.AuthenticationRequest;
 import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
 import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
+import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.Role;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +68,11 @@ public class UserService implements IUserService{
     @Override
     public int getNumberOfStudents() {
         return userRepository.getNumberOfStudents();
+    }
+
+    @Override
+    public User findUserById(UUID uuid) {
+        return userRepository.findUserById(uuid);
     }
 
 

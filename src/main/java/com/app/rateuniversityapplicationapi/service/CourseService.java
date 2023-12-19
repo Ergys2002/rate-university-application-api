@@ -1,23 +1,68 @@
 package com.app.rateuniversityapplicationapi.service;
 
 import com.app.rateuniversityapplicationapi.dto.CourseResponse;
+import com.app.rateuniversityapplicationapi.dto.Fixings.CourseDTO;
+import com.app.rateuniversityapplicationapi.dto.Fixings.UserDTO;
+import com.app.rateuniversityapplicationapi.dto.StudentResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
+import com.app.rateuniversityapplicationapi.entity.User;
+import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
+import com.app.rateuniversityapplicationapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CourseService implements ICourseService{
 
     private final CourseRepository courseRepository;
+    //Appended just for appendUser method (if error occurs delete)
+    private final UserRepository userRepository;
+
+    @Override
+    public boolean isEnrolled(UUID courseId, String email) {
+        User user = userRepository.findByEmail(email);
+        Course course = courseRepository.getCourseById(courseId);
+        System.out.println("\n " + user);
+        System.out.println("\n " + course);
+        // Check if the user is enrolled in the course
+        boolean flag = course.getRegisteredStudents().stream()
+                .anyMatch(enrolledUser -> enrolledUser.getId().equals(user.getId()));
+        System.out.println(flag);
+        return flag;
+    }
+
+
+    @Override
+    public void appendUser(String userEmail,UUID courseId) {
+        Course course = courseRepository.getCourseById(courseId);
+        User user = userRepository.findByEmail(userEmail);
+
+        Set<User> users = course.getRegisteredStudents();
+        Set<Course> courses = user.getEnrolledCourses();
+
+        UserDTO userDTO = new UserDTO(user);
+        CourseDTO courseDTO = new CourseDTO(course);
+
+//        users.add();
+//        courses.add();
+
+        course.setRegisteredStudents(users);
+        user.setEnrolledCourses(courses);
+
+        courseRepository.save(course);
+        userRepository.save(user);
+    }
 
     @Override
     public List<Course> findAllByPageNumber(int page) {
@@ -107,6 +152,30 @@ public class CourseService implements ICourseService{
     @Override
     public int getNumberOfCourses() {
         return courseRepository.getNumberOfCourses();
+    }
+
+    @Override
+    public List<StudentResponse> getUsersByEnrolledCourseContains(UUID courseUUID) {
+        Course course = courseRepository.getCourseById(courseUUID);
+        List<User> users = userRepository.getUsersByEnrolledCoursesContains(course);
+        List<StudentResponse> students = users.stream().map(user -> new StudentResponse() {
+            @Override
+            public String getFirstName() {
+                return user.getFirstname();
+            }
+
+            @Override
+            public String getLastName() {
+                return user.getLastname();
+            }
+
+            @Override
+            public String getEmail() {
+                return user.getEmail();
+            }
+        }).collect(Collectors.toList());
+
+        return students;
     }
 
 }

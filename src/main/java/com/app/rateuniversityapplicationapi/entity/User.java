@@ -1,10 +1,8 @@
 package com.app.rateuniversityapplicationapi.entity;
 
+import com.app.rateuniversityapplicationapi.dto.Fixings.CourseDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +15,10 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Data
+//@Data :Changed data with the three of above |Note
+@Setter
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

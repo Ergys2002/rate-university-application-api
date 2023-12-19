@@ -1,11 +1,9 @@
 package com.app.rateuniversityapplicationapi.entity;
 
+import com.app.rateuniversityapplicationapi.dto.Fixings.UserDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
@@ -14,8 +12,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+
+//@Data
+//:Massimo: Changed @Data anotation to the above,it was causing stack overflow
+@Setter
+@Getter
+@ToString
 @Entity
-@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,7 +48,8 @@ public class Course {
     @JoinColumn(name = "lecturer_id", updatable = false,insertable = false)
     private Lecturer lecturer;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+//    Changed cascadeType from all to merge
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "student_course",
             joinColumns = @JoinColumn(name = "course_id"),
