@@ -1,8 +1,6 @@
 package com.app.rateuniversityapplicationapi.service;
 
 import com.app.rateuniversityapplicationapi.dto.CourseResponse;
-import com.app.rateuniversityapplicationapi.dto.Fixings.CourseDTO;
-import com.app.rateuniversityapplicationapi.dto.Fixings.UserDTO;
 import com.app.rateuniversityapplicationapi.dto.StudentResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.User;
@@ -31,15 +29,10 @@ public class CourseService implements ICourseService{
 
     @Override
     public boolean isEnrolled(UUID courseId, String email) {
-        User user = userRepository.findByEmail(email);
-        Course course = courseRepository.getCourseById(courseId);
-        System.out.println("\n " + user);
-        System.out.println("\n " + course);
-        // Check if the user is enrolled in the course
-        boolean flag = course.getRegisteredStudents().stream()
-                .anyMatch(enrolledUser -> enrolledUser.getId().equals(user.getId()));
-        System.out.println(flag);
-        return flag;
+        List<StudentResponse> enrolledStudents = this.getUsersByEnrolledCourseContains(courseId);
+
+        return enrolledStudents.stream()
+                .anyMatch(enrolledStudent->enrolledStudent.getEmail().equals(email));
     }
 
 
@@ -49,19 +42,12 @@ public class CourseService implements ICourseService{
         User user = userRepository.findByEmail(userEmail);
 
         Set<User> users = course.getRegisteredStudents();
-        Set<Course> courses = user.getEnrolledCourses();
 
-        UserDTO userDTO = new UserDTO(user);
-        CourseDTO courseDTO = new CourseDTO(course);
-
-//        users.add();
-//        courses.add();
+        users.add(user);
 
         course.setRegisteredStudents(users);
-        user.setEnrolledCourses(courses);
-
+        course.setEnrolledStudents(users.size());
         courseRepository.save(course);
-        userRepository.save(user);
     }
 
     @Override

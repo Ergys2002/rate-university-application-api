@@ -1,6 +1,6 @@
 package com.app.rateuniversityapplicationapi.entity;
 
-import com.app.rateuniversityapplicationapi.dto.Fixings.UserDTO;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,12 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-
-//@Data
-//:Massimo: Changed @Data anotation to the above,it was causing stack overflow
-@Setter
-@Getter
-@ToString
+@Data
 @Entity
 @Builder
 @NoArgsConstructor

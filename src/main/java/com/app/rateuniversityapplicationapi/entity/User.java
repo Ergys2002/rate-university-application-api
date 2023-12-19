@@ -1,6 +1,6 @@
 package com.app.rateuniversityapplicationapi.entity;
 
-import com.app.rateuniversityapplicationapi.dto.Fixings.CourseDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,9 +16,7 @@ import java.util.UUID;
 
 @Entity
 //@Data :Changed data with the three of above |Note
-@Setter
-@Getter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
