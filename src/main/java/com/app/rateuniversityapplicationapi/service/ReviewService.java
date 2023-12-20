@@ -1,11 +1,15 @@
 package com.app.rateuniversityapplicationapi.service;
 
+import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
 import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
+import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.User;
+import com.app.rateuniversityapplicationapi.exceptions.CourseNotFoundException;
 import com.app.rateuniversityapplicationapi.exceptions.ReviewNotFoundException;
 import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
+import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.ReviewRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +29,8 @@ public class ReviewService implements IReviewService{
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
 
+    private final CourseRepository courseRepository;
+
     @Override
     public List<ReviewResponse> getAllReviews() {
         return reviewRepository.findAll().stream()
@@ -38,8 +44,14 @@ public class ReviewService implements IReviewService{
                     findById(UUID.fromString(review.getUserId()))
                     .orElseThrow(() -> new  UserNotFoundException("User with id :" + review.getUserId() + "not found"));
 
+        Course courseFromDB = courseRepository
+                .findById(UUID.fromString(review.getCourseId()))
+                .orElseThrow(() -> new CourseNotFoundException(
+                        "Course with id: " + review.getCourseId() + "not found!"
+                ));
 
         Review toBeSaved = Review.builder()
+                .course(courseFromDB)
                 .user(userFromDB)
                 .courseReview(review.getMessage())
                 .rating(review.getRating())

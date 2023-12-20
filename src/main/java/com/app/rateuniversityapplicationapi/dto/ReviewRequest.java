@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewRequest {
     private String userId;
+    private String courseId;
     private String message;
     private double rating;
 }

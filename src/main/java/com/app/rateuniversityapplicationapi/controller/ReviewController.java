@@ -25,6 +25,14 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
+    @GetMapping("/api/reviews/{userId}")
+    public ResponseEntity<List<ReviewResponse>> getReviewByUserId(@PathVariable String userId){
+        List<ReviewResponse> reviews = reviewService.getReviewsByUserId(
+                UUID.fromString(userId)
+        );
+        return new ResponseEntity<>(reviews,HttpStatus.OK);
+    }
+
     @PostMapping("/save-review")
     public ResponseEntity<ReviewResponse> saveReview(@RequestBody ReviewRequest request){
         return reviewService.saveReview(request);

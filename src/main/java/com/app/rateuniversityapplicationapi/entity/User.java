@@ -55,8 +55,8 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "registeredStudents",fetch = FetchType.LAZY)
     private Set<Course> enrolledCourses;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Review> reviews;
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
