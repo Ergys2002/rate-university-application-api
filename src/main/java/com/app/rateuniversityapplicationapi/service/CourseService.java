@@ -54,7 +54,7 @@ public class CourseService implements ICourseService{
         return true;
     }
 
-
+    @Transactional
     @Override
     public void appendUser(String userEmail,UUID courseId) {
         Course course = courseRepository.getCourseById(courseId);
