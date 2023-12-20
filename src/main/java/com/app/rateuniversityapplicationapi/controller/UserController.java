@@ -1,15 +1,16 @@
 package com.app.rateuniversityapplicationapi.controller;
 
-import com.app.rateuniversityapplicationapi.dto.AuthenticationRequest;
-import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
-import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
-import com.app.rateuniversityapplicationapi.dto.UserResponse;
+import com.app.rateuniversityapplicationapi.dto.*;
+import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +18,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final IUserService userService;
+
+    @PostMapping(path = "/drop-course",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void dropCourse(@RequestBody EnrollRequest enrollRequest){
+        userService.dropCourse(UUID.fromString(enrollRequest.getCourseId()),
+                enrollRequest.getEmail());
+    }
 
     @PostMapping("/user/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
@@ -35,4 +42,5 @@ public class UserController {
 
     @GetMapping("/user/logged-in-user")
     public UserResponse getLoggedInUser(){return userService.getCurrentUser();}
+
 }

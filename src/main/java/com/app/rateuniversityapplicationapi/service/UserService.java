@@ -1,15 +1,15 @@
 package com.app.rateuniversityapplicationapi.service;
 
 import com.app.rateuniversityapplicationapi.config.JwtService;
-import com.app.rateuniversityapplicationapi.dto.AuthenticationRequest;
-import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
-import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
+import com.app.rateuniversityapplicationapi.dto.*;
 import com.app.rateuniversityapplicationapi.entity.Course;
-import com.app.rateuniversityapplicationapi.dto.UserResponse;
+import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.Role;
 import com.app.rateuniversityapplicationapi.entity.User;
+import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,11 +22,14 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService{
+
+    private final CourseRepository courseRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -145,5 +148,22 @@ public class UserService implements IUserService{
                 return userFromDb.getProfilePhotoURL();
             }
         };
+    }
+
+    @Override
+    public void dropCourse(UUID uuid, String email) {
+        Course course = courseRepository.getCourseById(uuid);
+        Set<User> enrolledUsers = course.getRegisteredStudents();
+        System.out.println(enrolledUsers.size());
+        for (User student : enrolledUsers){
+            if (student.getEmail().equals(email)){
+                System.out.println(student.getEmail());
+                enrolledUsers.remove(student);
+                break;
+            }
+        }
+        System.out.println("ENROLLED USERS: " + enrolledUsers);
+        course.setRegisteredStudents(enrolledUsers);
+        courseRepository.save(course);
     }
 }

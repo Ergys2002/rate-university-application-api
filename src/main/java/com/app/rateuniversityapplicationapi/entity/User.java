@@ -1,9 +1,11 @@
 package com.app.rateuniversityapplicationapi.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +16,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+//Do not use Data Stack OverFlow Error
 @Entity
-//@Data :Changed data with the three of above |Note
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -48,8 +51,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany(mappedBy = "registeredStudents")
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "registeredStudents",fetch = FetchType.LAZY)
     private Set<Course> enrolledCourses;
+
+//    @OneToMany(mappedBy = "user")
+//    private List<Review> reviews;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

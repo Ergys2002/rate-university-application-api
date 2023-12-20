@@ -2,9 +2,12 @@ package com.app.rateuniversityapplicationapi.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +15,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-@Data
+//Data@ Do not use Data stack overflow error
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -44,11 +49,15 @@ public class Course {
     private Lecturer lecturer;
 
 //    Changed cascadeType from all to merge
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @JsonBackReference
+    @ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinTable(
             name = "student_course",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private Set<User> registeredStudents;
+
+    @OneToMany(mappedBy = "course")
+    private List<Review> reviews;
 }

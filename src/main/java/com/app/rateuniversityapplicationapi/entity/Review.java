@@ -33,6 +33,10 @@ public class Review {
     @JoinColumn(name = "user_reviews")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "course_reviews")
+    private Course course;
+
     @PrePersist
     public void setCreatedAt() {
         createdAt = LocalDate.now();
