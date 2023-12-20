@@ -1,11 +1,8 @@
 package com.app.rateuniversityapplicationapi.service;
 
-import com.app.rateuniversityapplicationapi.dto.AuthenticationRequest;
-import com.app.rateuniversityapplicationapi.dto.AuthenticationResponse;
-import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
+import com.app.rateuniversityapplicationapi.dto.*;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.User;
-import com.app.rateuniversityapplicationapi.dto.UserResponse;
 import com.app.rateuniversityapplicationapi.entity.User;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +18,7 @@ public interface IUserService {
 
     User findUserById(UUID uuid);
 
-
     UserResponse getCurrentUser();
+
+    void dropCourse(UUID uuid, String email);
 }

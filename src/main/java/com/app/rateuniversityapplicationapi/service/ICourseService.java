@@ -13,6 +13,8 @@ public interface ICourseService {
 
     boolean isEnrolled(UUID courseId, String email);
 
+    boolean dropCourse(UUID courseId,String userEmail);
+
     void appendUser(String userEmail, UUID courseId);
 
     List<Course> findAllByPageNumber(int page);

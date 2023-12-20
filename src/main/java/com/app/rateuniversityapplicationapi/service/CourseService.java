@@ -8,16 +8,17 @@ import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Collectors;
@@ -38,6 +39,19 @@ public class CourseService implements ICourseService{
 
         return enrolledStudents.stream()
                 .anyMatch(enrolledStudent->enrolledStudent.getEmail().equals(email));
+    }
+
+
+    @Override
+    public boolean dropCourse(UUID courseId,String userEmail) {
+        Course course = courseRepository.getCourseById(courseId);
+        User user = userRepository.findByEmail(userEmail);
+
+        Set<Course> enrolledCourses = user.getEnrolledCourses();
+        System.out.println(enrolledCourses);
+
+        courseRepository.save(course);
+        return true;
     }
 
 
