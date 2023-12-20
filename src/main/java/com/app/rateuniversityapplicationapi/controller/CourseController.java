@@ -87,4 +87,10 @@ public class CourseController {
     public List<CourseResponse> getAllCoursesOfAuthenticatedUser(){
         return courseService.getCoursesOfAuthenticatedUser();
     }
+
+    @GetMapping("/get-top-8-c")
+    public List<Course> getTop8RatedCourses(){
+        //it actually returns 8,typo no time to fix :\
+        return courseService.getTopTenRatedCourses();
+    }
 }

@@ -27,7 +27,7 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     )
     List<Course> getAllAvailableCourses(Boolean isAvailable);
 
-    @Query("from Course order by courseRating desc limit 10")
+    @Query("from Course order by courseRating desc limit 8")
     List<Course> getTop10RatedCourses();
 
     @Query("SELECT COUNT(c.id) FROM Course c")
