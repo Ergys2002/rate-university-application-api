@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -150,6 +151,7 @@ public class UserService implements IUserService{
         };
     }
 
+    @Transactional
     @Override
     public void dropCourse(UUID uuid, String email) {
         Course course = courseRepository.getCourseById(uuid);
@@ -159,11 +161,14 @@ public class UserService implements IUserService{
             if (student.getEmail().equals(email)){
                 System.out.println(student.getEmail());
                 enrolledUsers.remove(student);
+                course.setEnrolledStudents(enrolledUsers.size());
+                System.out.println(enrolledUsers.size());
                 break;
             }
         }
         System.out.println("ENROLLED USERS: " + enrolledUsers);
         course.setRegisteredStudents(enrolledUsers);
+        System.out.println("AFTERR" + course.getRegisteredStudents().size());
         courseRepository.save(course);
     }
 }
