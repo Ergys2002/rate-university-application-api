@@ -43,6 +43,7 @@ public class Course {
     @Column(name = "lecturer_id")
     protected UUID lecturerId;
 
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "lecturer_id", updatable = false,insertable = false)
