@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.service;
 
+import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
 import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
 import com.app.rateuniversityapplicationapi.entity.Review;
@@ -16,4 +17,5 @@ public interface IReviewService {
 
     List<ReviewResponse> getReviewsByUserId(UUID userId);
 
+    List<ReviewResponse> getReviewsByCourseId(UUID uuid);
 }

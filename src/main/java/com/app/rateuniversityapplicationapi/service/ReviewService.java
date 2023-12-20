@@ -70,6 +70,11 @@ public class ReviewService implements IReviewService{
         return reviewRepository.findReviewByUserUUID(userId);
     }
 
+    @Override
+    public List<ReviewResponse> getReviewsByCourseId(UUID courseId) {
+        return reviewRepository.findReviewsByCourseUUID(courseId);
+    }
+
     private ReviewResponse convertReviewToReviewResponse(Review review){
         return new ReviewResponse() {
             @Override

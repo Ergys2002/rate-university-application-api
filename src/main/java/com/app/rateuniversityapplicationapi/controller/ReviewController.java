@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.controller;
 
+import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
 import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
 import com.app.rateuniversityapplicationapi.service.IReviewService;
@@ -29,6 +30,14 @@ public class ReviewController {
     public ResponseEntity<List<ReviewResponse>> getReviewByUserId(@PathVariable String userId){
         List<ReviewResponse> reviews = reviewService.getReviewsByUserId(
                 UUID.fromString(userId)
+        );
+        return new ResponseEntity<>(reviews,HttpStatus.OK);
+    }
+
+    @GetMapping("/api/c-reviews/{courseId")
+    public ResponseEntity<List<ReviewResponse>> getReviewByCourseId(@PathVariable String courseId){
+        List<ReviewResponse> reviews = reviewService.getReviewsByCourseId(
+                UUID.fromString(courseId)
         );
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
