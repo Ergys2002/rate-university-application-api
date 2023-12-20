@@ -2,6 +2,7 @@ package com.app.rateuniversityapplicationapi.service;
 
 import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.dto.StudentResponse;
+import com.app.rateuniversityapplicationapi.dto.UserResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
@@ -28,6 +29,8 @@ public class CourseService implements ICourseService{
     private final CourseRepository courseRepository;
     //Appended just for appendUser method (if error occurs delete)
     private final UserRepository userRepository;
+
+    private final IUserService userService;
 
     @Override
     public boolean isEnrolled(UUID courseId, String email) {
@@ -239,6 +242,64 @@ public class CourseService implements ICourseService{
         }).collect(Collectors.toList());
 
         return students;
+    }
+
+    public List<CourseResponse> getCoursesOfAuthenticatedUser(){
+        UserResponse authenticatedUser = userService.getCurrentUser();
+
+        List<Course> coursesOfCurrentUserFromDb = courseRepository.findAllCoursesByCurrentUser(authenticatedUser.getEmail());
+
+        return coursesOfCurrentUserFromDb.stream().map(course -> new CourseResponse() {
+            @Override
+            public String getId() {
+                return course.getId().toString();
+            }
+
+            @Override
+            public String getTitle() {
+                return course.getTitle();
+            }
+
+            @Override
+            public String getDescription() {
+                return course.getDescription();
+            }
+
+            @Override
+            public LocalDate getStartDate() {
+                return course.getStartDate();
+            }
+
+            @Override
+            public LocalDate getEndDate() {
+                return course.getEndDate();
+            }
+
+            @Override
+            public boolean isAvailable() {
+                return course.isAvailable();
+            }
+
+            @Override
+            public int getTotalQuotes() {
+                return course.getTotalQuotes();
+            }
+
+            @Override
+            public int getEnrolledStudents() {
+                return course.getEnrolledStudents();
+            }
+
+            @Override
+            public double getRating() {
+                return course.getCourseRating();
+            }
+
+            @Override
+            public String getLecturerId() {
+                return course.getLecturerId().toString();
+            }
+        }).collect(Collectors.toList());
     }
 
 }

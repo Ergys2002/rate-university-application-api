@@ -32,4 +32,7 @@ public interface ICourseService {
     int getNumberOfCourses();
 
     List<StudentResponse> getUsersByEnrolledCourseContains(UUID courseUUID);
+
+
+    List<CourseResponse> getCoursesOfAuthenticatedUser();
 }

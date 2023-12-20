@@ -83,4 +83,8 @@ public class CourseController {
 
     }
 
+    @GetMapping("/courses-of-authenticated-user")
+    public List<CourseResponse> getAllCoursesOfAuthenticatedUser(){
+        return courseService.getCoursesOfAuthenticatedUser();
+    }
 }
