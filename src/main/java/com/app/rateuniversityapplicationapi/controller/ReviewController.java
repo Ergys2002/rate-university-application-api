@@ -26,7 +26,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @GetMapping("/api/reviews/{userId}")
+    @GetMapping("/u/{userId}")
     public ResponseEntity<List<ReviewResponse>> getReviewByUserId(@PathVariable String userId){
         List<ReviewResponse> reviews = reviewService.getReviewsByUserId(
                 UUID.fromString(userId)
@@ -34,7 +34,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
 
-    @GetMapping("/api/c-reviews/{courseId")
+    @GetMapping("/c/{courseId}")
     public ResponseEntity<List<ReviewResponse>> getReviewByCourseId(@PathVariable String courseId){
         List<ReviewResponse> reviews = reviewService.getReviewsByCourseId(
                 UUID.fromString(courseId)

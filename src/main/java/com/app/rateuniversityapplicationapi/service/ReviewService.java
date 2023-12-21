@@ -41,8 +41,7 @@ public class ReviewService implements IReviewService{
     @Override
     public ResponseEntity<ReviewResponse> saveReview(ReviewRequest review) {
         User userFromDB = userRepository.
-                    findById(UUID.fromString(review.getUserId()))
-                    .orElseThrow(() -> new  UserNotFoundException("User with id :" + review.getUserId() + "not found"));
+                    findByEmail(review.getEmail());
 
         Course courseFromDB = courseRepository
                 .findById(UUID.fromString(review.getCourseId()))

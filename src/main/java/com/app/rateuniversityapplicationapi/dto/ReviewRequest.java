@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewRequest {
-    private String userId;
+    private String email;
     private String courseId;
     private String message;
     private double rating;
