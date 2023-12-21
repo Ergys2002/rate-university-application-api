@@ -59,6 +59,7 @@ public class Course {
     )
     private Set<User> registeredStudents;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "course")
     private List<Review> reviews;
 }

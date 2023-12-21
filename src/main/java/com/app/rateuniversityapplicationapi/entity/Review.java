@@ -1,17 +1,16 @@
 package com.app.rateuniversityapplicationapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,10 +28,12 @@ public class Review {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_reviews")
     private User user;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "course_reviews")
     private Course course;

@@ -55,6 +55,7 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "registeredStudents",fetch = FetchType.LAZY)
     private Set<Course> enrolledCourses;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
 
