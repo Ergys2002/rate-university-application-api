@@ -26,10 +26,10 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @GetMapping("/u/{userId}")
-    public ResponseEntity<List<ReviewResponse>> getReviewByUserId(@PathVariable String userId){
-        List<ReviewResponse> reviews = reviewService.getReviewsByUserId(
-                UUID.fromString(userId)
+    @GetMapping("/u/{email}")
+    public ResponseEntity<List<ReviewResponse>> getReviewByUserId(@PathVariable String email){
+        List<ReviewResponse> reviews = reviewService.getReviewsByUserEmail(
+                email
         );
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }

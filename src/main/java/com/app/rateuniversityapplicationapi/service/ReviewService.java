@@ -1,6 +1,5 @@
 package com.app.rateuniversityapplicationapi.service;
 
-import com.app.rateuniversityapplicationapi.dto.CourseResponse;
 import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
 import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
@@ -8,7 +7,6 @@ import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.exceptions.CourseNotFoundException;
 import com.app.rateuniversityapplicationapi.exceptions.ReviewNotFoundException;
-import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.ReviewRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
@@ -65,13 +63,19 @@ public class ReviewService implements IReviewService{
     }
 
     @Override
-    public List<ReviewResponse> getReviewsByUserId(UUID userId) {
-        return reviewRepository.findReviewByUserUUID(userId);
+    public List<ReviewResponse> getReviewsByUserEmail(String email) {
+
+        return reviewRepository.findReviewsByUserEmail(email)
+                .stream().map(this::convertReviewToReviewResponse)
+                .collect(Collectors.toList());
+
     }
 
     @Override
     public List<ReviewResponse> getReviewsByCourseId(UUID courseId) {
-        return reviewRepository.findReviewsByCourseUUID(courseId);
+        return reviewRepository.findReviewsByCourseUUID(courseId)
+                .stream().map(this::convertReviewToReviewResponse)
+                .collect(Collectors.toList());
     }
 
     private ReviewResponse convertReviewToReviewResponse(Review review){

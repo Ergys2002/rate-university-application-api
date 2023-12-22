@@ -15,7 +15,7 @@ public interface IReviewService {
 
     ResponseEntity<ReviewResponse> saveReview(ReviewRequest review);
 
-    List<ReviewResponse> getReviewsByUserId(UUID userId);
+    List<ReviewResponse> getReviewsByUserEmail(String email);
 
     List<ReviewResponse> getReviewsByCourseId(UUID uuid);
 }
