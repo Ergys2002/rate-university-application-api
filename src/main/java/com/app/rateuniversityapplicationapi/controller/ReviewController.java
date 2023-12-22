@@ -27,7 +27,7 @@ public class ReviewController {
     }
 
     @GetMapping("/u/{email}")
-    public ResponseEntity<List<ReviewResponse>> getReviewByUserId(@PathVariable String email){
+    public ResponseEntity<List<ReviewResponse>> getReviewByUserEmail(@PathVariable String email){
         List<ReviewResponse> reviews = reviewService.getReviewsByUserEmail(
                 email
         );

@@ -29,12 +29,12 @@ public class Review {
     private LocalDate createdAt;
 
     @JsonManagedReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_reviews")
     private User user;
 
     @JsonManagedReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "course_reviews")
     private Course course;
 
