@@ -47,11 +47,15 @@ public class ReviewService implements IReviewService{
                         "Course with id: " + review.getCourseId() + "not found!"
                 ));
 
+        //calculate avg rating
+        int avgRating = (int) ((courseFromDB.getCourseRating() + review.getRating()) / 2);
+        //mqns i kemi shtuar reviewt fillestare me -1
+        if (avgRating<0){avgRating = avgRating * (-1);}
         Review toBeSaved = Review.builder()
                 .course(courseFromDB)
                 .user(userFromDB)
                 .courseReview(review.getMessage())
-                .rating(review.getRating())
+                .rating(avgRating)
                 .build();
 
         UUID reviewID = reviewRepository.save(toBeSaved).getId();
