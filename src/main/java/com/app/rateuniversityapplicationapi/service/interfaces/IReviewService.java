@@ -1,9 +1,7 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.interfaces;
 
-import com.app.rateuniversityapplicationapi.dto.CourseResponse;
-import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
-import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
-import com.app.rateuniversityapplicationapi.entity.Review;
+import com.app.rateuniversityapplicationapi.dto.requests.ReviewRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.ReviewResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

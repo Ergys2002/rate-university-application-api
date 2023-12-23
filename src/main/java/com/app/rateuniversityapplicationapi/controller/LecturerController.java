@@ -1,8 +1,7 @@
 package com.app.rateuniversityapplicationapi.controller;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
-import com.app.rateuniversityapplicationapi.service.ILecturerService;
-import com.app.rateuniversityapplicationapi.service.LecturerService;
+import com.app.rateuniversityapplicationapi.dto.responses.LecturerResponse;
+import com.app.rateuniversityapplicationapi.service.interfaces.ILecturerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,8 @@
 package com.app.rateuniversityapplicationapi.repository;
 
-import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
-import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
-import com.app.rateuniversityapplicationapi.entity.Review;
-import com.app.rateuniversityapplicationapi.service.ReviewService;
+import com.app.rateuniversityapplicationapi.dto.requests.ReviewRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.ReviewResponse;
+import com.app.rateuniversityapplicationapi.service.interfaces.IReviewService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReviewRepositoryTest {
 
     @Autowired
-    ReviewService reviewService;
+    IReviewService reviewService;
 
     @Autowired
     ReviewRepository reviewRepository;

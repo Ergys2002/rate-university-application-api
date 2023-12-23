@@ -1,4 +1,4 @@
-package com.app.rateuniversityapplicationapi.dto;
+package com.app.rateuniversityapplicationapi.dto.responses;
 
 public interface StudentResponse {
      String getFirstName();

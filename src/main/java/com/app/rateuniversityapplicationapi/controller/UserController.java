@@ -1,11 +1,13 @@
 package com.app.rateuniversityapplicationapi.controller;
 
-import com.app.rateuniversityapplicationapi.dto.*;
-import com.app.rateuniversityapplicationapi.entity.Review;
-import com.app.rateuniversityapplicationapi.entity.User;
-import com.app.rateuniversityapplicationapi.service.IUserService;
+import com.app.rateuniversityapplicationapi.dto.requests.AuthenticationRequest;
+import com.app.rateuniversityapplicationapi.dto.requests.EnrollRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.AuthenticationResponse;
+import com.app.rateuniversityapplicationapi.dto.requests.RegisterRequest;
+import com.app.rateuniversityapplicationapi.service.interfaces.IUserService;
+
+import com.app.rateuniversityapplicationapi.dto.responses.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

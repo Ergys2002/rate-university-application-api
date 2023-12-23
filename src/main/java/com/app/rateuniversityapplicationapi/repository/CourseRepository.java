@@ -32,7 +32,8 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
 
     @Query("SELECT COUNT(c.id) FROM Course c")
     int getNumberOfCourses();
-
+    @Query("select u from Course u ")
+    List<Course> getAll();
     Course getCourseByTitleEqualsIgnoreCaseAndDescriptionEqualsIgnoreCaseAndLecturerId(String title, String description, UUID lecturerId);
 
     List<Course> findCoursesByLecturerId(UUID lecturerId);

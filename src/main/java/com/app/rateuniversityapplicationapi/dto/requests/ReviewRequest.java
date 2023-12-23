@@ -1,4 +1,4 @@
-package com.app.rateuniversityapplicationapi.dto;
+package com.app.rateuniversityapplicationapi.dto.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class ReviewRequest {
     private String email;
-    private String password;
+    private String courseId;
+    private String message;
+    private double rating;
 }
