@@ -1,6 +1,6 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.interfaces;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.LecturerResponse;
 
 import java.util.List;
 import java.util.UUID;

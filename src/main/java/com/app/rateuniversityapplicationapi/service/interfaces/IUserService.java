@@ -1,12 +1,12 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.interfaces;
 
-import com.app.rateuniversityapplicationapi.dto.*;
-import com.app.rateuniversityapplicationapi.entity.Course;
-import com.app.rateuniversityapplicationapi.entity.User;
+import com.app.rateuniversityapplicationapi.dto.requests.AuthenticationRequest;
+import com.app.rateuniversityapplicationapi.dto.requests.RegisterRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.AuthenticationResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.UserResponse;
 import com.app.rateuniversityapplicationapi.entity.User;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface IUserService {

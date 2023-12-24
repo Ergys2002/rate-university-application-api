@@ -1,13 +1,11 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.interfaces;
 
-import com.app.rateuniversityapplicationapi.dto.CourseResponse;
-import com.app.rateuniversityapplicationapi.dto.StudentResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.CourseResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.StudentResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
-import com.app.rateuniversityapplicationapi.entity.User;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public interface ICourseService {
 
@@ -27,7 +25,7 @@ public interface ICourseService {
 
     List<Course> getTopTenRatedCourses();
 
-   CourseResponse getCourseById(UUID courseId);
+    CourseResponse getCourseById(UUID courseId);
 
    List<CourseResponse> getAllCoursesOfALecturer(String id);
 

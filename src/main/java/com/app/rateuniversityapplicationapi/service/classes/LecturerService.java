@@ -1,8 +1,9 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.classes;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.LecturerResponse;
 import com.app.rateuniversityapplicationapi.entity.Lecturer;
 import com.app.rateuniversityapplicationapi.repository.LecturerRepository;
+import com.app.rateuniversityapplicationapi.service.interfaces.ILecturerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.app.rateuniversityapplicationapi.repository;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.LecturerResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

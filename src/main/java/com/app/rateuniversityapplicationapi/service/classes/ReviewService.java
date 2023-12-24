@@ -1,17 +1,17 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.classes;
 
-import com.app.rateuniversityapplicationapi.dto.CourseResponse;
-import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
-import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
+
+import com.app.rateuniversityapplicationapi.dto.requests.ReviewRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.ReviewResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.exceptions.CourseNotFoundException;
 import com.app.rateuniversityapplicationapi.exceptions.ReviewNotFoundException;
-import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.ReviewRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
+import com.app.rateuniversityapplicationapi.service.interfaces.IReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewService implements IReviewService{
+public class ReviewService implements IReviewService {
 
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
@@ -65,13 +65,19 @@ public class ReviewService implements IReviewService{
     }
 
     @Override
-    public List<ReviewResponse> getReviewsByUserId(UUID userId) {
-        return reviewRepository.findReviewByUserUUID(userId);
+    public List<ReviewResponse> getReviewsByUserEmail(String email) {
+
+        return reviewRepository.findReviewsByUserEmail(email)
+                .stream().map(this::convertReviewToReviewResponse)
+                .collect(Collectors.toList());
+
     }
 
     @Override
     public List<ReviewResponse> getReviewsByCourseId(UUID courseId) {
-        return reviewRepository.findReviewsByCourseUUID(courseId);
+        return reviewRepository.findReviewsByCourseUUID(courseId)
+                .stream().map(this::convertReviewToReviewResponse)
+                .collect(Collectors.toList());
     }
 
     private ReviewResponse convertReviewToReviewResponse(Review review){

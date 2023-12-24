@@ -1,15 +1,17 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.classes;
 
 import com.app.rateuniversityapplicationapi.config.JwtService;
-import com.app.rateuniversityapplicationapi.dto.*;
+import com.app.rateuniversityapplicationapi.dto.requests.AuthenticationRequest;
+import com.app.rateuniversityapplicationapi.dto.requests.RegisterRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.AuthenticationResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.UserResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
-import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.Role;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
+import com.app.rateuniversityapplicationapi.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,13 +25,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements IUserService{
+public class UserService implements IUserService {
 
     private final CourseRepository courseRepository;
 

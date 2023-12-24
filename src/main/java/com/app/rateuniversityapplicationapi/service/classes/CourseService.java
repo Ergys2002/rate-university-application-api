@@ -1,17 +1,15 @@
-package com.app.rateuniversityapplicationapi.service;
+package com.app.rateuniversityapplicationapi.service.classes;
 
-import com.app.rateuniversityapplicationapi.dto.CourseResponse;
-import com.app.rateuniversityapplicationapi.dto.StudentResponse;
-import com.app.rateuniversityapplicationapi.dto.UserResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.CourseResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.StudentResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.UserResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
 import com.app.rateuniversityapplicationapi.entity.User;
-import com.app.rateuniversityapplicationapi.exceptions.UserNotFoundException;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
 import com.app.rateuniversityapplicationapi.repository.UserRepository;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.app.rateuniversityapplicationapi.service.interfaces.ICourseService;
+import com.app.rateuniversityapplicationapi.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,13 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CourseService implements ICourseService{
+public class CourseService implements ICourseService {
 
     private final CourseRepository courseRepository;
     //Appended just for appendUser method (if error occurs delete)

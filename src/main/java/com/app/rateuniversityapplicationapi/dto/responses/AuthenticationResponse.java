@@ -1,4 +1,4 @@
-package com.app.rateuniversityapplicationapi.dto;
+package com.app.rateuniversityapplicationapi.dto.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
