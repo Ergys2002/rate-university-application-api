@@ -41,6 +41,11 @@ public class ReviewController {
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
 
+    @GetMapping("get-average-rating/{courseId}")
+    public int getAverageRating(@PathVariable String courseId){
+        return reviewService.getAverageRating(UUID.fromString(courseId));
+    }
+
     @PostMapping("/save-review")
     public ResponseEntity<ReviewResponse> saveReview(@RequestBody ReviewRequest request){
         return reviewService.saveReview(request);

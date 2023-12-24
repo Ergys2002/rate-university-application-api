@@ -18,4 +18,6 @@ public interface IReviewService {
     List<ReviewResponse> getReviewsByCourseId(UUID uuid);
 
     void deleteOldReviews();
+
+    int getAverageRating(UUID uuid);
 }

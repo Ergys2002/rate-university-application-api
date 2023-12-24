@@ -50,15 +50,12 @@ public class ReviewService implements IReviewService {
                         "Course with id: " + review.getCourseId() + "not found!"
                 ));
 
-        //calculate avg rating
-        int avgRating = (int) ((courseFromDB.getCourseRating() + review.getRating()) / 2);
-        //mqns i kemi shtuar reviewt fillestare me -1
-        if (avgRating<0){avgRating = avgRating * (-1);}
+
         Review toBeSaved = Review.builder()
                 .course(courseFromDB)
                 .user(userFromDB)
                 .courseReview(review.getMessage())
-                .rating(avgRating)
+                .rating(review.getRating())
                 .build();
 
         UUID reviewID = reviewRepository.save(toBeSaved).getId();
@@ -112,5 +109,29 @@ public class ReviewService implements IReviewService {
     public void deleteOldReviews() {
         List<Review> oldReviews = reviewRepository.findByCreatedAtBefore(LocalDate.now().minusDays(1));
         reviewRepository.deleteAll(oldReviews);
+    }
+
+    @Override
+    public int getAverageRating(UUID uuid) {
+        List<ReviewResponse> reviews = this.getReviewsByCourseId(
+                uuid
+        );
+
+        int count = reviews.size();
+
+        if (count == 0){
+            return 0;
+        }
+
+        double averageRating = reviews.stream()
+                .mapToDouble(ReviewResponse::getRating)
+                .average()
+                .orElse(0.0);
+
+        Course course = this.courseRepository.getCourseById(uuid);
+        course.setCourseRating(averageRating);
+        this.courseRepository.save(course);
+
+        return (int) (averageRating);
     }
 }
