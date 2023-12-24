@@ -1,7 +1,7 @@
 package com.app.rateuniversityapplicationapi.controller;
 
 import com.app.rateuniversityapplicationapi.dto.*;
-import com.app.rateuniversityapplicationapi.entity.Review;
+//import com.app.rateuniversityapplicationapi.entity.Review;
 import com.app.rateuniversityapplicationapi.entity.User;
 import com.app.rateuniversityapplicationapi.service.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -43,4 +43,11 @@ public class UserController {
     @GetMapping("/user/logged-in-user")
     public UserResponse getLoggedInUser(){return userService.getCurrentUser();}
 
+    @PutMapping("/user/update-profile")
+    public void updateUserProfile(
+            @RequestBody UpdateUserRequest request) {
+
+        userService.updateUser(request);
+
+    }
 }

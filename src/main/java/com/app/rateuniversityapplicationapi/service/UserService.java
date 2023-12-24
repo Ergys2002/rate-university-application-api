@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -171,4 +172,20 @@ public class UserService implements IUserService{
         System.out.println("AFTERR" + course.getRegisteredStudents().size());
         courseRepository.save(course);
     }
+
+    public void updateUser( UpdateUserRequest request) {
+
+        String email = getCurrentUser().getEmail();
+
+        User existingUser = userRepository.findByEmail(email);
+
+        existingUser.setFirstname(request.getFirstname());
+        existingUser.setLastname(request.getLastname());
+        existingUser.setEmail((request.getEmail()));
+        existingUser.setPassword(passwordEncoder.encode((request.getPassword())));
+
+        userRepository.save(existingUser);
+
+    }
+
 }

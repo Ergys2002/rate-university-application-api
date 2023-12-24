@@ -21,4 +21,6 @@ public interface IUserService {
     UserResponse getCurrentUser();
 
     void dropCourse(UUID uuid, String email);
+
+    void updateUser( UpdateUserRequest request);
 }
