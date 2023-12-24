@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -106,5 +107,10 @@ public class ReviewService implements IReviewService {
                 return review.getRating();
             }
         };
+    }
+
+    public void deleteOldReviews() {
+        List<Review> oldReviews = reviewRepository.findByCreatedAtBefore(LocalDate.now().minusDays(1));
+        reviewRepository.deleteAll(oldReviews);
     }
 }

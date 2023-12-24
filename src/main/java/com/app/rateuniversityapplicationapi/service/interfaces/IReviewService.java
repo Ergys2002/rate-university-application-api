@@ -16,4 +16,6 @@ public interface IReviewService {
     List<ReviewResponse> getReviewsByUserEmail(String email);
 
     List<ReviewResponse> getReviewsByCourseId(UUID uuid);
+
+    void deleteOldReviews();
 }

@@ -39,6 +39,7 @@ public class Course {
     @Column(name = "enrolle_students")
     private int enrolledStudents;
     private double courseRating;
+    private String picture;
 
     @Column(name = "lecturer_id")
     protected UUID lecturerId;
@@ -59,6 +60,7 @@ public class Course {
     )
     private Set<User> registeredStudents;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "course")
     private Set<CourseSchedule> courseSchedules;
 
