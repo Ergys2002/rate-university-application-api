@@ -1,9 +1,11 @@
 package com.app.rateuniversityapplicationapi.config;
 
-import com.app.rateuniversityapplicationapi.dto.LecturerResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.LecturerResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
+import com.app.rateuniversityapplicationapi.entity.CourseSchedule;
 import com.app.rateuniversityapplicationapi.entity.Lecturer;
 import com.app.rateuniversityapplicationapi.repository.CourseRepository;
+import com.app.rateuniversityapplicationapi.repository.CourseScheduleRepository;
 import com.app.rateuniversityapplicationapi.repository.LecturerRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,8 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,14 +25,24 @@ public class InitialDataPersistance implements CommandLineRunner {
 
     private final LecturerRepository lecturerRepository;
     private final CourseRepository courseRepository;
+    private final CourseScheduleRepository courseScheduleRepository;
+
     @Override
     public void run(String... args) throws Exception {
         seedData();
     }
 
-    public void seedData(){
+    private List<String> getLecturerIds() {
+        return lecturerRepository.getAll().stream().map(LecturerResponse::getId).collect(Collectors.toList());
+    }
 
-      createLecturerIfNotPresent(
+    private List<String> getCourseIds() {
+        return courseRepository.getAll().stream().map(course -> course.getId().toString()).collect(Collectors.toList());
+    }
+
+    public void seedData() {
+
+        createLecturerIfNotPresent(
                 "John",
                 "Doe",
                 "johndoe@example.com",
@@ -46,7 +58,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Specializes in literature and language studies"
         );
 
-       createLecturerIfNotPresent(
+        createLecturerIfNotPresent(
                 "Michael",
                 "Johnson",
                 "michael.johnson@example.com",
@@ -223,16 +235,16 @@ public class InitialDataPersistance implements CommandLineRunner {
                 UUID.fromString(lecturerIds.get(2))
         );
 
-       createCourseIfNotPresent(
+        createCourseIfNotPresent(
                 "Introduction to Psychology",
                 "Explore the fundamentals of human behavior and psychological processes.",
                 LocalDate.of(2023, 7, 1),
                 LocalDate.of(2023, 8, 31),
                 true,
                 9,
-               UUID.fromString(lecturerIds.get(3))
+                UUID.fromString(lecturerIds.get(3))
 
-       );
+        );
 
         createCourseIfNotPresent(
                 "Data Science for Beginners",
@@ -315,7 +327,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 UUID.fromString(lecturerIds.get(8))
         );
 
-       createCourseIfNotPresent(
+        createCourseIfNotPresent(
                 "Environmental Sustainability",
                 "Learn about environmental issues, conservation, and sustainable practices.",
                 LocalDate.of(2025, 1, 1),
@@ -323,7 +335,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 true,
                 9,
                 UUID.fromString(lecturerIds.get(7))
-       );
+        );
 
         createCourseIfNotPresent(
                 "Mobile App Development",
@@ -395,13 +407,324 @@ public class InitialDataPersistance implements CommandLineRunner {
                 UUID.fromString(lecturerIds.get(0))
         );
 
+        List<String> courseIds = getCourseIds();
 
+        createCourseScheduleIfNotPresent(
+                "FTI104",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("09:00:00"),
+                3,
+                UUID.fromString(courseIds.get(0))
+        );
 
+        createCourseScheduleIfNotPresent(
+                "FTI105",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("10:00:00"),
+                2,
+                UUID.fromString(courseIds.get(1))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI106",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("11:00:00"),
+                1,
+                UUID.fromString(courseIds.get(2))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI107",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("12:00:00"),
+                3,
+                UUID.fromString(courseIds.get(3))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI108",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("13:00:00"),
+                3,
+                UUID.fromString(courseIds.get(4))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI109",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("14:00:00"),
+                3,
+                UUID.fromString(courseIds.get(5))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI111",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("15:00:00"),
+                3,
+                UUID.fromString(courseIds.get(6))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE205",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("16:00:00"),
+                3,
+                UUID.fromString(courseIds.get(7))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE210",
+                LocalDate.parse("2024-01-06"),
+                LocalTime.parse("17:00:00"),
+                3,
+                UUID.fromString(courseIds.get(8))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE307",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("08:00:00"),              //
+                3,
+                UUID.fromString(courseIds.get(9))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE304",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("09:00:00"),
+                3,
+                UUID.fromString(courseIds.get(10))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT202",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("10:00:00"),
+                3,
+                UUID.fromString(courseIds.get(11))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT207",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("11:00:00"),
+                3,
+                UUID.fromString(courseIds.get(12))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT209",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("12:00:00"),
+                3,
+                UUID.fromString(courseIds.get(13))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT203",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("13:00:00"),
+                3,
+                UUID.fromString(courseIds.get(14))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI305",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("14:00:00"),
+                3,
+                UUID.fromString(courseIds.get(15))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI214",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("15:00:00"),
+                3,
+                UUID.fromString(courseIds.get(16))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI315",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("16:00:00"),
+                3,
+                UUID.fromString(courseIds.get(17))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE217",
+                LocalDate.parse("2024-01-07"),
+                LocalTime.parse("17:00:00"),
+                3,
+                UUID.fromString(courseIds.get(18))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE211",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("08:00:00"),
+                3,
+                UUID.fromString(courseIds.get(19))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE213",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("09:00:00"),
+                3,
+                UUID.fromString(courseIds.get(0))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE117",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("10:00:00"),
+                3,
+                UUID.fromString(courseIds.get(1))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT102",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("11:00:00"),
+                3,
+                UUID.fromString(courseIds.get(2))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT127",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("12:00:00"),
+                3,
+                UUID.fromString(courseIds.get(3))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT112",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("13:00:00"),
+                3,
+                UUID.fromString(courseIds.get(4))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT123",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("14:00:00"),
+                3,
+                UUID.fromString(courseIds.get(5))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT115",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("15:00:00"),
+                3,
+                UUID.fromString(courseIds.get(6))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT117",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("16:00:00"),
+                3,
+                UUID.fromString(courseIds.get(7))
+        );createCourseScheduleIfNotPresent(
+                "UPT222",
+                LocalDate.parse("2024-01-08"),
+                LocalTime.parse("17:00:00"),
+                3,
+                UUID.fromString(courseIds.get(8))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT333",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("08:00:00"),
+                3,
+                UUID.fromString(courseIds.get(9))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT444",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("09:00:00"),
+                3,
+                UUID.fromString(courseIds.get(10))
+        );
+        createCourseScheduleIfNotPresent(
+                "UPT111",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("10:00:00"),
+                3,
+                UUID.fromString(courseIds.get(11))
+        );createCourseScheduleIfNotPresent(
+                "UPT000",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("11:00:00"),
+                3,
+                UUID.fromString(courseIds.get(12))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI000",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("12:00:00"),
+                3,
+                UUID.fromString(courseIds.get(13))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI111",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("13:00:00"),
+                3,
+                UUID.fromString(courseIds.get(14))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI222",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("14:00:00"),
+                3,
+                UUID.fromString(courseIds.get(15))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI333",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("15:00:00"),
+                3,
+                UUID.fromString(courseIds.get(16))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI444",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("16:00:00"),
+                3,
+                UUID.fromString(courseIds.get(17))
+        );
+        createCourseScheduleIfNotPresent(
+                "FTI555",
+                LocalDate.parse("2024-01-09"),
+                LocalTime.parse("17:00:00"),
+                3,
+                UUID.fromString(courseIds.get(18))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE000",
+                LocalDate.parse("2024-01-10"),
+                LocalTime.parse("08:00:00"),
+                3,
+                UUID.fromString(courseIds.get(19))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE111",
+                LocalDate.parse("2024-01-10"),
+                LocalTime.parse("09:00:00"),
+                3,
+                UUID.fromString(courseIds.get(0))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE222",
+                LocalDate.parse("2024-01-10"),
+                LocalTime.parse("10:00:00"),
+                3,
+                UUID.fromString(courseIds.get(1))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE333",
+                LocalDate.parse("2024-01-10"),
+                LocalTime.parse("11:00:00"),
+                3,
+                UUID.fromString(courseIds.get(2))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE444",
+                LocalDate.parse("2024-01-10"),
+                LocalTime.parse("12:00:00"),
+                3,
+                UUID.fromString(courseIds.get(3))
+        );
+        createCourseScheduleIfNotPresent(
+                "FIE555",
+                LocalDate.parse("2024-01-10"),
+                LocalTime.parse("13:00:00"),
+                3,
+                UUID.fromString(courseIds.get(4))
+        );
     }
 
-    private List<String> getLecturerIds(){
-        return lecturerRepository.getAll().stream().map(LecturerResponse::getId).collect(Collectors.toList());
-    }
 
     private void createLecturerIfNotPresent(
             String firstName,
@@ -422,7 +745,7 @@ public class InitialDataPersistance implements CommandLineRunner {
 
         Lecturer lecturerDb = lecturerRepository.getLecturersByEmail(lecturer.getEmail());
         if (lecturerDb == null)
-           lecturerRepository.save(lecturer);
+            lecturerRepository.save(lecturer);
     }
 
     public void createCourseIfNotPresent(
@@ -433,7 +756,7 @@ public class InitialDataPersistance implements CommandLineRunner {
             boolean isAvailable,
             int totalQuotes,
             UUID lecturerId
-    ){
+    ) {
         Course course = Course.builder()
                 .title(title)
                 .description(description)
@@ -446,11 +769,38 @@ public class InitialDataPersistance implements CommandLineRunner {
                 .lecturerId(lecturerId)
                 .build();
 
-        Course courseDB = courseRepository.getCourseByTitleEqualsIgnoreCaseAndDescriptionEqualsIgnoreCaseAndLecturerId(course.getTitle() , course.getDescription(), course.getLecturerId());
+        Course courseDB = courseRepository.getCourseByTitleEqualsIgnoreCaseAndDescriptionEqualsIgnoreCaseAndLecturerId(course.getTitle(), course.getDescription(), course.getLecturerId());
         if (courseDB == null)
             courseRepository.save(course);
 
     }
 
+    private void createCourseScheduleIfNotPresent(
+            String lectureHall,
+            LocalDate courseDate,
+            LocalTime courseTime,
+            double duration,
+            UUID courseId
+    ) {
+
+        CourseSchedule courseSchedule = CourseSchedule.builder()
+                .lectureHall(lectureHall)
+                .courseDate(courseDate)
+                .courseTime(courseTime)
+                .duration(duration)
+                .courseId(courseId)
+                .build();
+
+        CourseSchedule courseScheduleDb = courseScheduleRepository
+                .getCourseScheduleByCourseIdAndCourseDateAndCourseTimeAndDurationAndLectureHall(
+                        courseSchedule.getCourseId(),
+                        courseSchedule.getCourseDate(),
+                        courseSchedule.getCourseTime(),
+                        courseSchedule.getDuration(),
+                        courseSchedule.getLectureHall()
+                );
+        if (courseScheduleDb == null)
+            courseScheduleRepository.save(courseSchedule);
+    }
 
 }

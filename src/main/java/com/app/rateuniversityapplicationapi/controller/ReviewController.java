@@ -1,11 +1,10 @@
 package com.app.rateuniversityapplicationapi.controller;
 
-import com.app.rateuniversityapplicationapi.dto.CourseResponse;
-import com.app.rateuniversityapplicationapi.dto.ReviewRequest;
-import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
-import com.app.rateuniversityapplicationapi.service.IReviewService;
+
+import com.app.rateuniversityapplicationapi.dto.requests.ReviewRequest;
+import com.app.rateuniversityapplicationapi.dto.responses.ReviewResponse;
+import com.app.rateuniversityapplicationapi.service.interfaces.IReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +33,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
 
-    @GetMapping("/c/{courseId}")
+    @GetMapping("/api/c-reviews/{courseId}")
     public ResponseEntity<List<ReviewResponse>> getReviewByCourseId(@PathVariable String courseId){
         List<ReviewResponse> reviews = reviewService.getReviewsByCourseId(
                 UUID.fromString(courseId)

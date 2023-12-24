@@ -1,6 +1,6 @@
 package com.app.rateuniversityapplicationapi.repository;
 
-import com.app.rateuniversityapplicationapi.dto.ReviewResponse;
+import com.app.rateuniversityapplicationapi.dto.responses.ReviewResponse;
 import com.app.rateuniversityapplicationapi.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

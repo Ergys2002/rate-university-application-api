@@ -1,6 +1,6 @@
 //package com.app.rateuniversityapplicationapi.service;
 //
-//import com.app.rateuniversityapplicationapi.dto.RegisterRequest;
+//import com.app.rateuniversityapplicationapi.dto.requests.RegisterRequest;
 //import com.app.rateuniversityapplicationapi.entity.Role;
 //import com.app.rateuniversityapplicationapi.entity.User;
 //import org.junit.jupiter.api.Test;
