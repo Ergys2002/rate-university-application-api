@@ -12,6 +12,7 @@ import lombok.Data;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -42,11 +43,28 @@ public class InitialDataPersistance implements CommandLineRunner {
 
     public void seedData() {
 
+        File directory = new File("src/main/resources/static/img/lecturers");
+        File[] files = null;
+        if (directory.isDirectory()) {
+            files = directory.listFiles(); // Get all files in the directory
+
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        System.out.println(file.getName()); // Print file names
+                    }
+                }
+            }
+        } else {
+            System.out.println("Not a directory or directory does not exist.");
+        }
+
+        assert files != null;
         createLecturerIfNotPresent(
                 "John",
                 "Doe",
                 "johndoe@example.com",
-                "https://example.com/profiles/johndoe.jpg",
+                files[0].getName(),
                 "Experienced lecturer in mathematics"
         );
 
@@ -54,7 +72,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Alice",
                 "Smith",
                 "alice.smith@example.com",
-                "https://example.com/profiles/alicesmith.jpg",
+                files[1].getName(),
                 "Specializes in literature and language studies"
         );
 
@@ -62,7 +80,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Michael",
                 "Johnson",
                 "michael.johnson@example.com",
-                "https://example.com/profiles/michaeljohnson.jpg",
+                files[2].getName(),
                 "Teaching computer science for a decade"
         );
 
@@ -70,7 +88,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Emily",
                 "Brown",
                 "emily.brown@example.com",
-                "https://example.com/profiles/emilybrown.jpg",
+                files[3].getName(),
                 "Passionate about environmental sciences"
         );
 
@@ -78,7 +96,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Daniel",
                 "Garcia",
                 "daniel.garcia@example.com",
-                "https://example.com/profiles/danielgarcia.jpg",
+                files[4].getName(),
                 "Expertise in business administration"
         );
 
@@ -86,7 +104,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Sophia",
                 "Martinez",
                 "sophia.martinez@example.com",
-                "https://example.com/profiles/sophiamartinez.jpg",
+                files[5].getName(),
                 "Innovative approaches to psychology teaching"
         );
 
@@ -94,7 +112,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "William",
                 "Lee",
                 "william.lee@example.com",
-                "https://example.com/profiles/williamlee.jpg",
+                files[6].getName(),
                 "Leadership training and management studies"
         );
 
@@ -102,7 +120,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Olivia",
                 "Wang",
                 "olivia.wang@example.com",
-                "https://example.com/profiles/oliviawang.jpg",
+                files[7].getName(),
                 "Research-focused lecturer in biology"
         );
 
@@ -110,7 +128,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Ethan",
                 "Lopez",
                 "ethan.lopez@example.com",
-                "https://example.com/profiles/ethanlopez.jpg",
+                files[8].getName(),
                 "History and cultural studies enthusiast"
         );
 
@@ -118,7 +136,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Ava",
                 "Nguyen",
                 "ava.nguyen@example.com",
-                "https://example.com/profiles/avanguyen.jpg",
+                files[9].getName(),
                 "Advocating for gender studies and equality"
         );
 
@@ -126,7 +144,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Liam",
                 "Gonzalez",
                 "liam.gonzalez@example.com",
-                "https://example.com/profiles/liamgonzalez.jpg",
+                files[10].getName(),
                 "Expertise in physics and theoretical studies"
         );
 
@@ -134,7 +152,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Charlotte",
                 "Turner",
                 "charlotte.turner@example.com",
-                "https://example.com/profiles/charlotteturner.jpg",
+                files[11].getName(),
                 "Mathematics enthusiast and educator"
         );
 
@@ -142,7 +160,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Mason",
                 "Perez",
                 "mason.perez@example.com",
-                "https://example.com/profiles/masonperez.jpg",
+                files[12].getName(),
                 "Astronomy and astrophysics researcher"
         );
 
@@ -150,7 +168,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Amelia",
                 "Hernandez",
                 "amelia.hernandez@example.com",
-                "https://example.com/profiles/ameliahernandez.jpg",
+                files[13].getName(),
                 "Music theory and composition specialist"
         );
 
@@ -158,7 +176,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Logan",
                 "Scott",
                 "logan.scott@example.com",
-                "https://example.com/profiles/loganscott.jpg",
+                files[14].getName(),
                 "Physical education and sports science mentor"
         );
 
@@ -166,7 +184,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Grace",
                 "Flores",
                 "grace.flores@example.com",
-                "https://example.com/profiles/graceflores.jpg",
+                files[15].getName(),
                 "Healthcare administration and public policy advocate"
         );
 
@@ -174,7 +192,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Ryan",
                 "Adams",
                 "ryan.adams@example.com",
-                "https://example.com/profiles/ryanadams.jpg",
+                files[16].getName(),
                 "Philosophy and ethics lecturer"
         );
 
@@ -182,7 +200,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Chloe",
                 "Russell",
                 "chloe.russell@example.com",
-                "https://example.com/profiles/chloerussell.jpg",
+                files[17].getName(),
                 "Economics and global finance expert"
         );
 
@@ -190,7 +208,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Lucas",
                 "Griffin",
                 "lucas.griffin@example.com",
-                "https://example.com/profiles/lucasgriffin.jpg",
+                files[18].getName(),
                 "Technology and innovation evangelist"
         );
 
@@ -198,7 +216,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 "Zoe",
                 "Diaz",
                 "zoe.diaz@example.com",
-                "https://example.com/profiles/zoediaz.jpg",
+                files[19].getName(),
                 "Creative writing and storytelling mentor"
         );
 
@@ -212,7 +230,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 2, 28),
                 true,
                 10,
-                UUID.fromString(lecturerIds.get(0))
+                UUID.fromString(lecturerIds.get(0)),
+                "introduction_to_astrophysics.jpg"
         );
 
         createCourseIfNotPresent(
@@ -222,7 +241,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 4, 30),
                 true,
                 12,
-                UUID.fromString(lecturerIds.get(1))
+                UUID.fromString(lecturerIds.get(1)),
+                "advanced_calculus_and_differential_equations.jpg"
         );
 
         createCourseIfNotPresent(
@@ -232,7 +252,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 6, 30),
                 true,
                 8,
-                UUID.fromString(lecturerIds.get(2))
+                UUID.fromString(lecturerIds.get(2)),
+                "genetics_and_evolution.jpg"
+
         );
 
         createCourseIfNotPresent(
@@ -242,7 +264,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 8, 31),
                 true,
                 9,
-                UUID.fromString(lecturerIds.get(3))
+                UUID.fromString(lecturerIds.get(3)),
+                "introduction_to_psychology.jpg"
+
 
         );
 
@@ -253,7 +277,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 10, 31),
                 true,
                 11,
-                UUID.fromString(lecturerIds.get(4))
+                UUID.fromString(lecturerIds.get(4)),
+                "data_science_for_beginners.jpg"
+
         );
 
         createCourseIfNotPresent(
@@ -263,7 +289,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2023, 12, 31),
                 true,
                 9,
-                UUID.fromString(lecturerIds.get(5))
+                UUID.fromString(lecturerIds.get(5)),
+                "artificial_intelligence_fundamentals.jpg"
+
         );
 
         createCourseIfNotPresent(
@@ -273,7 +301,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 2, 29),
                 true,
                 10,
-                UUID.fromString(lecturerIds.get(6))
+                UUID.fromString(lecturerIds.get(6)),
+                "financial_markets_and_investments.jpg"
+
         );
 
         createCourseIfNotPresent(
@@ -283,7 +313,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 4, 30),
                 true,
                 11,
-                UUID.fromString(lecturerIds.get(7))
+                UUID.fromString(lecturerIds.get(7)),
+                "digital_marketing_essentials.jpg"
+
         );
 
         createCourseIfNotPresent(
@@ -293,7 +325,9 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 6, 30),
                 true,
                 8,
-                UUID.fromString(lecturerIds.get(8))
+                UUID.fromString(lecturerIds.get(8)),
+                "creative_writing_workshop.jpg"
+
         );
 
         createCourseIfNotPresent(
@@ -303,7 +337,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 8, 31),
                 true,
                 12,
-                UUID.fromString(lecturerIds.get(9))
+                UUID.fromString(lecturerIds.get(9)),
+                "photography_masterclass.jpg"
         );
 
 
@@ -314,7 +349,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 10, 31),
                 true,
                 13,
-                UUID.fromString(lecturerIds.get(9))
+                UUID.fromString(lecturerIds.get(9)),
+                "entrepreneurship_fundamentals.jpeg"
         );
 
         createCourseIfNotPresent(
@@ -324,7 +360,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2024, 12, 31),
                 true,
                 10,
-                UUID.fromString(lecturerIds.get(8))
+                UUID.fromString(lecturerIds.get(8)),
+                "neuroscience_and_cognition.jpg"
         );
 
         createCourseIfNotPresent(
@@ -334,7 +371,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 2, 28),
                 true,
                 9,
-                UUID.fromString(lecturerIds.get(7))
+                UUID.fromString(lecturerIds.get(7)),
+                "environmental_sustainability.jpeg"
         );
 
         createCourseIfNotPresent(
@@ -344,7 +382,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 4, 30),
                 true,
                 11,
-                UUID.fromString(lecturerIds.get(6))
+                UUID.fromString(lecturerIds.get(6)),
+                "mobile_app_development.jpg"
         );
 
         createCourseIfNotPresent(
@@ -354,7 +393,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 6, 30),
                 true,
                 8,
-                UUID.fromString(lecturerIds.get(5))
+                UUID.fromString(lecturerIds.get(5)),
+                "forensic_science_and_criminalistics.jpg"
         );
 
         createCourseIfNotPresent(
@@ -364,7 +404,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 8, 31),
                 true,
                 12,
-                UUID.fromString(lecturerIds.get(4))
+                UUID.fromString(lecturerIds.get(4)),
+                "cryptocurrency_and_blockchain.jpg"
         );
 
         createCourseIfNotPresent(
@@ -374,7 +415,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 10, 31),
                 true,
                 10,
-                UUID.fromString(lecturerIds.get(3))
+                UUID.fromString(lecturerIds.get(3)),
+                "public_speaking_mastery.jpg"
         );
 
         createCourseIfNotPresent(
@@ -384,7 +426,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2025, 12, 31),
                 true,
                 11,
-                UUID.fromString(lecturerIds.get(2))
+                UUID.fromString(lecturerIds.get(2)),
+                "ethical_hacking_and_cybersecurity.jpg"
         );
 
         createCourseIfNotPresent(
@@ -394,7 +437,8 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2026, 2, 28),
                 true,
                 10,
-                UUID.fromString(lecturerIds.get(1))
+                UUID.fromString(lecturerIds.get(1)),
+                "music_production_and_audio_engineering.jpg"
         );
 
         createCourseIfNotPresent(
@@ -404,10 +448,12 @@ public class InitialDataPersistance implements CommandLineRunner {
                 LocalDate.of(2026, 4, 30),
                 true,
                 12,
-                UUID.fromString(lecturerIds.get(0))
+                UUID.fromString(lecturerIds.get(0)),
+                "machine_learning_and_neural_networks.jpeg"
         );
 
         List<String> courseIds = getCourseIds();
+        System.out.println("Course Ids: \n" + courseIds);
 
         createCourseScheduleIfNotPresent(
                 "FTI104",
@@ -755,7 +801,8 @@ public class InitialDataPersistance implements CommandLineRunner {
             LocalDate endDate,
             boolean isAvailable,
             int totalQuotes,
-            UUID lecturerId
+            UUID lecturerId,
+            String picture
     ) {
         Course course = Course.builder()
                 .title(title)
@@ -767,6 +814,7 @@ public class InitialDataPersistance implements CommandLineRunner {
                 .enrolledStudents(0)
                 .courseRating(-1)
                 .lecturerId(lecturerId)
+                .picture(picture)
                 .build();
 
         Course courseDB = courseRepository.getCourseByTitleEqualsIgnoreCaseAndDescriptionEqualsIgnoreCaseAndLecturerId(course.getTitle(), course.getDescription(), course.getLecturerId());

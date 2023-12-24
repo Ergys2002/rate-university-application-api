@@ -33,7 +33,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
 
-    @GetMapping("/api/c-reviews/{courseId}")
+    @GetMapping("/course-reviews/{courseId}")
     public ResponseEntity<List<ReviewResponse>> getReviewByCourseId(@PathVariable String courseId){
         List<ReviewResponse> reviews = reviewService.getReviewsByCourseId(
                 UUID.fromString(courseId)

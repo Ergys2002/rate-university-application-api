@@ -13,5 +13,6 @@ public interface CourseResponse {
     int getEnrolledStudents();
     double getRating();
     String getLecturerId();
+    String getPicture();
 
 }
