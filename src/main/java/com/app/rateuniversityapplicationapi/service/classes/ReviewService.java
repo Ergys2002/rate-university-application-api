@@ -41,14 +41,32 @@ public class ReviewService implements IReviewService {
 
     @Override
     public ResponseEntity<ReviewResponse> saveReview(ReviewRequest review) {
-        User userFromDB = userRepository.
-                    findByEmail(review.getEmail());
 
         Course courseFromDB = courseRepository
                 .findById(UUID.fromString(review.getCourseId()))
                 .orElseThrow(() -> new CourseNotFoundException(
                         "Course with id: " + review.getCourseId() + "not found!"
                 ));
+
+        boolean isUserEnrolled = courseFromDB
+                .getRegisteredStudents()
+                .stream()
+                .anyMatch(s -> s.getEmail().equals(review.getEmail()));
+
+        if (!isUserEnrolled){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        boolean hasReviewWithTheSameEmail = courseFromDB.getReviews().stream()
+                .anyMatch(r -> r.getUser().getEmail().equals(review.getEmail()));
+
+        if (hasReviewWithTheSameEmail){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        User userFromDB = userRepository.
+                findByEmail(review.getEmail());
+
 
 
         Review toBeSaved = Review.builder()
