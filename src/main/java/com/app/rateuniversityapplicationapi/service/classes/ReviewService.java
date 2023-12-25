@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,14 +42,33 @@ public class ReviewService implements IReviewService {
 
     @Override
     public ResponseEntity<ReviewResponse> saveReview(ReviewRequest review) {
-        User userFromDB = userRepository.
-                    findByEmail(review.getEmail());
 
         Course courseFromDB = courseRepository
                 .findById(UUID.fromString(review.getCourseId()))
                 .orElseThrow(() -> new CourseNotFoundException(
                         "Course with id: " + review.getCourseId() + "not found!"
                 ));
+
+        boolean isUserEnrolled = courseFromDB
+                .getRegisteredStudents()
+                .stream()
+                .anyMatch(s -> s.getEmail().equals(review.getEmail()));
+
+        if (!isUserEnrolled){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        boolean hasReviewWithTheSameEmail = courseFromDB.getReviews().stream()
+                .anyMatch(r -> r.getUser().getEmail().equals(review.getEmail()));
+
+        if (hasReviewWithTheSameEmail){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        User userFromDB = userRepository.
+                findByEmail(review.getEmail());
+
+
 
         Review toBeSaved = Review.builder()
                 .course(courseFromDB)
@@ -104,5 +124,34 @@ public class ReviewService implements IReviewService {
                 return review.getRating();
             }
         };
+    }
+
+    public void deleteOldReviews() {
+        List<Review> oldReviews = reviewRepository.findByCreatedAtBefore(LocalDate.now().minusDays(1));
+        reviewRepository.deleteAll(oldReviews);
+    }
+
+    @Override
+    public int getAverageRating(UUID uuid) {
+        List<ReviewResponse> reviews = this.getReviewsByCourseId(
+                uuid
+        );
+
+        int count = reviews.size();
+
+        if (count == 0){
+            return 0;
+        }
+
+        double averageRating = reviews.stream()
+                .mapToDouble(ReviewResponse::getRating)
+                .average()
+                .orElse(0.0);
+
+        Course course = this.courseRepository.getCourseById(uuid);
+        course.setCourseRating(averageRating);
+        this.courseRepository.save(course);
+
+        return (int) (averageRating);
     }
 }

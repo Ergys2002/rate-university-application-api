@@ -167,6 +167,11 @@ public class CourseService implements ICourseService {
             public String getLecturerId() {
                 return courseFromDb.getLecturerId().toString();
             }
+
+            @Override
+            public String getPicture() {
+                return courseFromDb.getPicture();
+            }
         };
     }
 
@@ -221,6 +226,11 @@ public class CourseService implements ICourseService {
            @Override
            public String getLecturerId() {
                return course.getLecturerId().toString();
+           }
+
+           @Override
+           public String getPicture() {
+               return course.getPicture();
            }
        }).collect(Collectors.toList());
     }
@@ -308,6 +318,11 @@ public class CourseService implements ICourseService {
             @Override
             public String getLecturerId() {
                 return course.getLecturerId().toString();
+            }
+
+            @Override
+            public String getPicture() {
+                return course.getPicture();
             }
         }).collect(Collectors.toList());
     }
