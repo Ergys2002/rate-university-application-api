@@ -3,6 +3,7 @@ package com.app.rateuniversityapplicationapi.service.classes;
 import com.app.rateuniversityapplicationapi.config.JwtService;
 import com.app.rateuniversityapplicationapi.dto.requests.AuthenticationRequest;
 import com.app.rateuniversityapplicationapi.dto.requests.RegisterRequest;
+import com.app.rateuniversityapplicationapi.dto.requests.UpdateUserRequest;
 import com.app.rateuniversityapplicationapi.dto.responses.AuthenticationResponse;
 import com.app.rateuniversityapplicationapi.dto.responses.UserResponse;
 import com.app.rateuniversityapplicationapi.entity.Course;
@@ -87,7 +88,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public ResponseEntity<AuthenticationResponse> authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -108,7 +109,7 @@ public class UserService implements IUserService {
                                 .toInstant()
                                 .atZone(ZoneId.systemDefault())
                                 .toLocalDate())
-                .build(), HttpStatus.ACCEPTED).getBody();
+                .build(), HttpStatus.ACCEPTED);
     }
 
 
@@ -174,19 +175,30 @@ public class UserService implements IUserService {
         courseRepository.save(course);
     }
 
-    public void updateUser( UpdateUserRequest request) {
+    public ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request) {
 
-        String email = getCurrentUser().getEmail();
+        User fromDb = userRepository.findByEmail(request.getEmail());
 
-        User existingUser = userRepository.findByEmail(email);
+        if (fromDb == null) {
 
-        existingUser.setFirstname(request.getFirstname());
-        existingUser.setLastname(request.getLastname());
-        existingUser.setEmail((request.getEmail()));
-        existingUser.setPassword(passwordEncoder.encode((request.getPassword())));
+            String email = getCurrentUser().getEmail();
+            User userToBeUpdated = userRepository.findByEmail(email);
 
-        userRepository.save(existingUser);
+            userToBeUpdated.setFirstname(request.getFirstname());
+            userToBeUpdated.setLastname(request.getLastname());
+            userToBeUpdated.setEmail(request.getEmail());
+            userToBeUpdated.setPhoneNumber(request.getPhoneNumber());
+            userToBeUpdated.setPassword(passwordEncoder.encode(request.getPassword()));
 
+            userRepository.save(userToBeUpdated);
+
+
+            return authenticate(new AuthenticationRequest(userToBeUpdated.getEmail(), request.getPassword()));
+        }
+        else{
+            return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+        }
     }
+
 
 }

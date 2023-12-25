@@ -25,7 +25,6 @@ public interface UserRepository extends JpaRepository<User,UUID> {
     //Needed for CourseRepository
     User findUserById(UUID uuid);
 
-    User save(User user);
     @Query("from User u where u.email = :email")
 
     UserDetails findByLogin(@Param("email") String email);

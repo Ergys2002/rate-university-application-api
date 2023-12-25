@@ -24,6 +24,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Table(name = "user_en")
+@ToString
 public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "uuid2")

@@ -13,7 +13,7 @@ public interface IReviewService {
 
     ResponseEntity<ReviewResponse> saveReview(ReviewRequest review);
 
-    List<ReviewResponse> getReviewsByUserEmail(String email);
+    List<ReviewResponse> getReviewsByUserEmail();
 
     List<ReviewResponse> getReviewsByCourseId(UUID uuid);
 }

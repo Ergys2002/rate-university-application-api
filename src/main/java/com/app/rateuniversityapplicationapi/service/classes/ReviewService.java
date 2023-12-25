@@ -30,6 +30,7 @@ public class ReviewService implements IReviewService {
     private final UserRepository userRepository;
 
     private final CourseRepository courseRepository;
+    private final UserService userService;
 
     @Override
     public List<ReviewResponse> getAllReviews() {
@@ -65,8 +66,9 @@ public class ReviewService implements IReviewService {
     }
 
     @Override
-    public List<ReviewResponse> getReviewsByUserEmail(String email) {
+    public List<ReviewResponse> getReviewsByUserEmail() {
 
+        String email = userService.getCurrentUser().getEmail();
         return reviewRepository.findReviewsByUserEmail(email)
                 .stream().map(this::convertReviewToReviewResponse)
                 .collect(Collectors.toList());

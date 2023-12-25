@@ -1,4 +1,4 @@
-package com.app.rateuniversityapplicationapi.dto;
+package com.app.rateuniversityapplicationapi.dto.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,5 +15,6 @@ public class UpdateUserRequest {
     private String lastname;
     private String email;
     private String password;
+    private String phoneNumber;
 
 }

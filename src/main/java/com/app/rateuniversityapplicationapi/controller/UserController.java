@@ -2,15 +2,13 @@ package com.app.rateuniversityapplicationapi.controller;
 
 import com.app.rateuniversityapplicationapi.dto.requests.AuthenticationRequest;
 import com.app.rateuniversityapplicationapi.dto.requests.EnrollRequest;
+import com.app.rateuniversityapplicationapi.dto.requests.UpdateUserRequest;
 import com.app.rateuniversityapplicationapi.dto.responses.AuthenticationResponse;
 import com.app.rateuniversityapplicationapi.dto.requests.RegisterRequest;
 import com.app.rateuniversityapplicationapi.service.interfaces.IUserService;
 
 import com.app.rateuniversityapplicationapi.dto.responses.UserResponse;
-import com.app.rateuniversityapplicationapi.dto.*;
-//import com.app.rateuniversityapplicationapi.entity.Review;
-import com.app.rateuniversityapplicationapi.entity.User;
-import com.app.rateuniversityapplicationapi.service.IUserService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +36,7 @@ public class UserController {
 
     @PostMapping("/user/login")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(userService.authenticate(request));
+        return userService.authenticate(request);
     }
 
     @GetMapping("/students/number-of-students")
@@ -50,10 +48,10 @@ public class UserController {
     public UserResponse getLoggedInUser(){return userService.getCurrentUser();}
 
     @PutMapping("/user/update-profile")
-    public void updateUserProfile(
+    public ResponseEntity<AuthenticationResponse> updateUserProfile(
             @RequestBody UpdateUserRequest request) {
 
-        userService.updateUser(request);
+       return userService.updateUser(request);
 
     }
 }

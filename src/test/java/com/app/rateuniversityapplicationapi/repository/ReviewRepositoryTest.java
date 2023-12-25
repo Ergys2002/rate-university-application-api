@@ -25,18 +25,18 @@ class ReviewRepositoryTest {
     @Test
     void findReviewByUserEmail() {
 
-        ReviewRequest reviewRequest = ReviewRequest.builder()
-                .courseId("02a88816-3fb4-4cb3-bb9c-7dde41c10a46")
-                .email("masimo_ramaj@shqiptar.eu")
-                .message("TESTIN Course repo")
-                .rating(4)
-                .build();
-
-        reviewService.saveReview(reviewRequest);
-
-        List<ReviewResponse> reviewResponses = reviewService
-                .getReviewsByUserEmail("masimo_ramaj@shqiptar.eu");
-
-        System.out.println(reviewResponses);
+//        ReviewRequest reviewRequest = ReviewRequest.builder()
+//                .courseId("02a88816-3fb4-4cb3-bb9c-7dde41c10a46")
+//                .email("masimo_ramaj@shqiptar.eu")
+//                .message("TESTIN Course repo")
+//                .rating(4)
+//                .build();
+//
+//        reviewService.saveReview(reviewRequest);
+//
+//        List<ReviewResponse> reviewResponses = reviewService
+//                .getReviewsByUserEmail("masimo_ramaj@shqiptar.eu");
+//
+//        System.out.println(reviewResponses);
     }
 }

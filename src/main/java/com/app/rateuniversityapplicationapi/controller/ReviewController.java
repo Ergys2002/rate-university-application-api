@@ -25,16 +25,13 @@ public class ReviewController {
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @GetMapping("/u/{email}")
-    public ResponseEntity<List<ReviewResponse>> getReviewByUserEmail(@PathVariable String email){
-        List<ReviewResponse> reviews = reviewService.getReviewsByUserEmail(
-                email
-        );
+    @GetMapping("/user-reviews")
+    public ResponseEntity<List<ReviewResponse>> getReviewByUserEmail(){
+        List<ReviewResponse> reviews = reviewService.getReviewsByUserEmail();
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
 
-    @GetMapping("/api/c-reviews/{courseId}")
-    @GetMapping({"/api/c-reviews/{courseId}", "/c/{courseId}"})
+    @GetMapping("/course-reviews/{courseId}")
     public ResponseEntity<List<ReviewResponse>> getReviewByCourseId(@PathVariable String courseId){
         List<ReviewResponse> reviews = reviewService.getReviewsByCourseId(
                 UUID.fromString(courseId)
