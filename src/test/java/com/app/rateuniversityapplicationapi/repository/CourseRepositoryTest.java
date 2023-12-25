@@ -106,7 +106,7 @@ class CourseRepositoryTest {
 
         courseRepository.save(course);
         //when
-        List<Course> retrievedCourses = courseRepository.getCourseByCourseName("Fizik1");
+        List<Course> retrievedCourses = courseRepository.findCourseByTitleContainingIgnoreCase("Fizik1");
 
         //then
         Course retrievedCourse = retrievedCourses.get(0);

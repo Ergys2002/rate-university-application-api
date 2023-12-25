@@ -1,5 +1,6 @@
 package com.app.rateuniversityapplicationapi.controller;
 
+import com.app.rateuniversityapplicationapi.dto.requests.CourseRequest;
 import com.app.rateuniversityapplicationapi.dto.responses.CourseResponse;
 import com.app.rateuniversityapplicationapi.dto.requests.EnrollRequest;
 import com.app.rateuniversityapplicationapi.dto.responses.StudentResponse;
@@ -29,11 +30,6 @@ public class CourseController {
        return courseService.isEnrolled(
                UUID.fromString(enrollRequest.getCourseId()),
                enrollRequest.getEmail());
-    }
-
-    @GetMapping("/{course-name}")
-    public List<Course> getCoursesByName(@PathVariable("course-name") String courseName){
-        return courseService.getCoursesByName(courseName);
     }
 
     @GetMapping("/details")
@@ -66,6 +62,11 @@ public class CourseController {
         courseService.appendUser(
                 enrollRequest.getEmail(),
                 UUID.fromString(enrollRequest.getCourseId()));
+    }
+
+    @PostMapping (path = "/search",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public List<Course> getCoursesByName(@RequestBody CourseRequest courseRequest){
+        return courseService.getCoursesByName(courseRequest.getCourseName());
     }
 
     @GetMapping("/enrolled-students/{courseUUID}")

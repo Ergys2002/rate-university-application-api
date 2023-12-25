@@ -22,6 +22,8 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     )
     List<Course> getCourseByCourseName(String courseName);
 
+    List<Course> findCourseByTitleContainingIgnoreCase(String courseName);
+
     @Query(
             value = "select u from Course u where u.isAvailable = ?1"
     )
