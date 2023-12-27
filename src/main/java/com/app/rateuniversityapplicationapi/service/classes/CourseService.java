@@ -100,7 +100,9 @@ public class CourseService implements ICourseService {
 
     @Override
     public List<Course> getCoursesByName(String name) {
-        return courseRepository.getCourseByCourseName(name);
+        List<Course> courses = courseRepository.findCourseByTitleContainingIgnoreCase(name);
+        System.out.println(courses);
+        return courses;
     }
 
     @Override
@@ -112,6 +114,8 @@ public class CourseService implements ICourseService {
     public List<Course> getTopTenRatedCourses() {
         return courseRepository.getTop10RatedCourses();
     }
+
+
 
     @Override
     public CourseResponse getCourseById(UUID courseId) {
