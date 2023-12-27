@@ -17,14 +17,12 @@ public class LecturerController {
 
     private final ILecturerService lecturerService;
 
-    // Endpoint to get all lecturers
     @GetMapping
     public ResponseEntity<List<LecturerResponse>> getAllLecturers() {
         List<LecturerResponse> lecturers = lecturerService.getAllLecturers();
         return new ResponseEntity<>(lecturers, HttpStatus.OK);
     }
 
-    // Endpoint to get a specific lecturer by ID
     @GetMapping("/{id}")
     public ResponseEntity<LecturerResponse> getLecturerById(@PathVariable UUID id) {
         LecturerResponse lecturer = lecturerService.getLecturerById(id);
