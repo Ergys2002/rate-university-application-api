@@ -41,6 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/courses/number-of-courses").permitAll()
                         .requestMatchers(HttpMethod.GET,"/img/lecturers/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/img/courses/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/img/users/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

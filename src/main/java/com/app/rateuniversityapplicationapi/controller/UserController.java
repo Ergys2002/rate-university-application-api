@@ -49,9 +49,11 @@ public class UserController {
     public UserResponse getLoggedInUser(){return userService.getCurrentUser();}
 
     @PutMapping(value = "/user/update-profile", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @ResponseBody
     public ResponseEntity<AuthenticationResponse> updateUserProfile(
-            @RequestPart("profilePhoto") MultipartFile profilePhoto,
-            @RequestPart("updateUserRequest") UpdateUserRequest request) {
-        return userService.updateUser(request, profilePhoto);
+            @ModelAttribute UpdateUserRequest updateUserRequest
+    ) {
+        System.out.println(updateUserRequest);
+        return userService.updateUser(updateUserRequest);
     }
 }

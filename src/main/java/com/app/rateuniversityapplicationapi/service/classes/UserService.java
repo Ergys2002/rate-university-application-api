@@ -26,7 +26,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -185,16 +187,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request, MultipartFile profilePhoto) {
-
+    public ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request) {
+        System.out.println(request);
         String email = getCurrentUser().getEmail();
         User userToBeUpdated = userRepository.findByEmail(email);
 
         userToBeUpdated.setFirstname(request.getFirstname());
         userToBeUpdated.setLastname(request.getLastname());
         userToBeUpdated.setPhoneNumber(request.getPhoneNumber());
-        if (profilePhoto != null) {
-            String newProfilePhotoPath = saveProfileImage(userToBeUpdated, profilePhoto);
+        if (request.getProfilePhoto() != null) {
+            String newProfilePhotoPath = saveProfileImage(userToBeUpdated, request.getProfilePhoto());
             userToBeUpdated.setProfilePhotoURL(newProfilePhotoPath);
         }
         if (Objects.equals(request.getPassword(), "")) {
@@ -216,17 +218,27 @@ public class UserService implements IUserService {
     }
 
     private String saveProfileImage(User user, MultipartFile profileImage) {
-        String uploadDir = "static/img/users";
+
+
+        File uploadRootDir = new File("src/main/resources/static/img/users");
+
+        if (!uploadRootDir.exists()) {
+            uploadRootDir.mkdirs();
+        }
+
 
         try {
             String originalFilename = profileImage.getOriginalFilename();
             String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
             String fileName = user.getFirstname() + "_" + user.getLastname() + extension;
+            File serverFile = new File(uploadRootDir.getAbsolutePath() + File.separator + fileName);
 
-            Path filePath = Paths.get(uploadDir, fileName);
-            Files.copy(profileImage.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            return filePath.toString();  // Return the file path
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+            stream.write(profileImage.getBytes());
+            stream.close();
+            return serverFile.getName();
+
         } catch (IOException e) {
             e.printStackTrace();
             // Handle the exception (e.g., log it or throw a custom exception)

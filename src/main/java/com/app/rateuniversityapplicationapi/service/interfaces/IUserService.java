@@ -25,5 +25,5 @@ public interface IUserService {
 
     void dropCourse(UUID uuid, String email);
 
-    ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request, MultipartFile profilePhoto);
+    ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request);
 }
