@@ -52,7 +52,7 @@ public class CourseService implements ICourseService {
 
     @Transactional
     @Override
-    public void appendUser(String userEmail,UUID courseId) {
+    public Course appendUser(String userEmail,UUID courseId) {
         Course course = courseRepository.getCourseById(courseId);
         User user = userRepository.findByEmail(userEmail);
 
@@ -66,8 +66,7 @@ public class CourseService implements ICourseService {
         course.setRegisteredStudents(users);
         course.setEnrolledStudents(userRepository.getUsersByEnrolledCoursesContains(course).size());
 
-        courseRepository.save(course);
-
+        return courseRepository.save(course);
     }
 
     @Override

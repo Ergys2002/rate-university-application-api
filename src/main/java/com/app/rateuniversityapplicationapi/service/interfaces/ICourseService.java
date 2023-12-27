@@ -13,7 +13,7 @@ public interface ICourseService {
 
     boolean dropCourse(UUID courseId,String userEmail);
 
-    void appendUser(String userEmail, UUID courseId);
+    Course appendUser(String userEmail, UUID courseId);
 
     List<Course> findAllByPageNumber(int page);
 
