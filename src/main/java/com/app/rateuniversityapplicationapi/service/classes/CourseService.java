@@ -68,21 +68,6 @@ public class CourseService implements ICourseService {
 
         courseRepository.save(course);
 
-//        Course course = courseRepository.getCourseById(courseId);
-//        User user = userRepository.findByEmail(userEmail);
-//
-//        Collection<User> users = userRepository.getUsersByEnrolledCoursesContains(course);
-//        System.out.println("USERSSS " + users);
-//
-//        users.add(user);
-//
-//        System.out.println("\n\n\n\nUsers" + user);
-//        System.out.println("\nUsers dot size " +users.size());
-//
-//        course.setRegisteredStudents((Set<User>) users);
-//        course.setEnrolledStudents(users.size());
-//
-//        courseRepository.save(course);
     }
 
     @Override

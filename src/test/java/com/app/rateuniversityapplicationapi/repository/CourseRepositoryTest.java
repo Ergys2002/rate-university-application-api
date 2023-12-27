@@ -1,48 +1,108 @@
 package com.app.rateuniversityapplicationapi.repository;
 
+import com.app.rateuniversityapplicationapi.entity.Course;
+import com.app.rateuniversityapplicationapi.entity.Lecturer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DataJpaTest
 class CourseRepositoryTest {
 
-    @Test
-    void getCourseById() {
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private TestEntityManager testEntityManager;
+
+    @BeforeEach
+    void setUp() {
+
+        Course course = Course.builder()
+                .title("Advanced Calculus")
+                .description("Master the intricacies of advanced mathematical concepts and applications.")
+                .totalQuotes(12)
+                .enrolledStudents(1)
+                .courseRating(5.0)
+                .isAvailable(true)
+                .build();
+
+        testEntityManager.persist(course);
     }
 
     @Test
-    void getCourseByCourseName() {
+    public void whenGetByCourseName_thenReturnCourse() {
+        List<Course> course =
+                courseRepository.getCourseByCourseName("Advanced Calculus");
+
+        assertEquals(course.get(0).getTitle(),"Advanced Calculus");
     }
 
     @Test
-    void findCourseByTitleContainingIgnoreCase() {
+    public void whenFindCourseByTitleContainingIgnoreCase_thenReturnCourses() {
+        List<Course> course =
+                courseRepository.findCourseByTitleContainingIgnoreCase("Advanced Calculus");
+
+        assertEquals(course.get(0).getTitle(),"Advanced Calculus");
     }
 
     @Test
-    void getAllAvailableCourses() {
+    public void whenGetAllAvailableCourses_thenReturnListOfAvailableCourses(){
+        List<Course> availableCourses =
+                courseRepository.getAllAvailableCourses(true);
+        assertEquals(availableCourses.size(),1);
     }
 
     @Test
-    void getTop10RatedCourses() {
+    public void whenGetTop10RatedCourses_thenSortCourses(){
+        Course course1 = Course.builder()
+                .title("Maths")
+                .description("Master the intricacies of advanced mathematical concepts and applications.")
+                .totalQuotes(12)
+                .enrolledStudents(1)
+                .courseRating(12)
+                .isAvailable(true)
+                .build();
+
+        testEntityManager.persist(course1);
+
+        List<Course> top10RatedCourses =
+                courseRepository.getTop10RatedCourses();
+
+        assertEquals(top10RatedCourses.get(0),course1);
     }
 
     @Test
-    void getNumberOfCourses() {
-    }
+    public void whenFindCoursesByLecturerId_thenReturnCourse(){
+        Lecturer lecturer = Lecturer.builder().build();
 
-    @Test
-    void getAll() {
-    }
+        Course course1 = Course.builder()
+                .title("Maths")
+                .description("Master the intricacies of advanced mathematical concepts and applications.")
+                .totalQuotes(12)
+                .enrolledStudents(1)
+                .courseRating(12)
+                .isAvailable(true)
+                .lecturerId(lecturer.getId())
+                .build();
 
-    @Test
-    void getCourseByTitleEqualsIgnoreCaseAndDescriptionEqualsIgnoreCaseAndLecturerId() {
-    }
+        testEntityManager.persist(course1);
 
-    @Test
-    void findCoursesByLecturerId() {
-    }
+        List<Course> courses =
+                courseRepository.findCoursesByLecturerId(lecturer.getId());
 
-    @Test
-    void findAllCoursesByCurrentUser() {
-    }
+        assertEquals(courses.get(1).getTitle(),course1.getTitle());
+    };
 }
