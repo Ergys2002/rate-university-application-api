@@ -123,6 +123,8 @@ public class ReviewService implements IReviewService {
             public double getRating() {
                 return review.getRating();
             }
+
+            public Course getCourse(){return review.getCourse();}
         };
     }
 

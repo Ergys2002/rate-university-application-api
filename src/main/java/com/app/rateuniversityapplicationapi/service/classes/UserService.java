@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -179,7 +180,7 @@ public class UserService implements IUserService {
 
         User fromDb = userRepository.findByEmail(request.getEmail());
 
-        if (fromDb == null) {
+        if (fromDb == null || (Objects.equals(getCurrentUser().getEmail(), request.getEmail()))) {
 
             String email = getCurrentUser().getEmail();
             User userToBeUpdated = userRepository.findByEmail(email);
