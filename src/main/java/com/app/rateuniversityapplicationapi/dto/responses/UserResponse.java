@@ -6,7 +6,7 @@ public interface UserResponse {
     String getFirstName();
     String getLastName();
     String getEmail();
-    LocalDate getBirdhDate();
+    LocalDate getBirthDate();
     String getPhoneNumber();
     String getProfilePhotoUrl();
 

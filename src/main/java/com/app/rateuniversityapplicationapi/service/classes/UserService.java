@@ -14,6 +14,7 @@ import com.app.rateuniversityapplicationapi.repository.UserRepository;
 import com.app.rateuniversityapplicationapi.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +24,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Objects;
@@ -139,7 +147,7 @@ public class UserService implements IUserService {
             }
 
             @Override
-            public LocalDate getBirdhDate() {
+            public LocalDate getBirthDate() {
                 return userFromDb.getBirthDate();
             }
 
@@ -161,8 +169,8 @@ public class UserService implements IUserService {
         Course course = courseRepository.getCourseById(uuid);
         Set<User> enrolledUsers = course.getRegisteredStudents();
         System.out.println(enrolledUsers.size());
-        for (User student : enrolledUsers){
-            if (student.getEmail().equals(email)){
+        for (User student : enrolledUsers) {
+            if (student.getEmail().equals(email)) {
                 System.out.println(student.getEmail());
                 enrolledUsers.remove(student);
                 course.setEnrolledStudents(enrolledUsers.size());
@@ -176,30 +184,54 @@ public class UserService implements IUserService {
         courseRepository.save(course);
     }
 
-    public ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request) {
+    @Override
+    public ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request, MultipartFile profilePhoto) {
 
-        User fromDb = userRepository.findByEmail(request.getEmail());
+        String email = getCurrentUser().getEmail();
+        User userToBeUpdated = userRepository.findByEmail(email);
 
-        if (fromDb == null || (Objects.equals(getCurrentUser().getEmail(), request.getEmail()))) {
-
-            String email = getCurrentUser().getEmail();
-            User userToBeUpdated = userRepository.findByEmail(email);
-
-            userToBeUpdated.setFirstname(request.getFirstname());
-            userToBeUpdated.setLastname(request.getLastname());
-            userToBeUpdated.setEmail(request.getEmail());
-            userToBeUpdated.setPhoneNumber(request.getPhoneNumber());
-            userToBeUpdated.setPassword(passwordEncoder.encode(request.getPassword()));
-
-            userRepository.save(userToBeUpdated);
-
-
-            return authenticate(new AuthenticationRequest(userToBeUpdated.getEmail(), request.getPassword()));
+        userToBeUpdated.setFirstname(request.getFirstname());
+        userToBeUpdated.setLastname(request.getLastname());
+        userToBeUpdated.setPhoneNumber(request.getPhoneNumber());
+        if (profilePhoto != null) {
+            String newProfilePhotoPath = saveProfileImage(userToBeUpdated, profilePhoto);
+            userToBeUpdated.setProfilePhotoURL(newProfilePhotoPath);
         }
-        else{
-            return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
+        if (Objects.equals(request.getPassword(), "")) {
+            userToBeUpdated.setPassword(userToBeUpdated.getPassword());
+        } else {
+            userToBeUpdated.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        userRepository.save(userToBeUpdated);
+
+        if (Objects.equals(request.getPassword(), "")) {
+            return new ResponseEntity<>(AuthenticationResponse.builder()
+                    .message("User updated successfully")
+                    .build()
+                    , HttpStatusCode.valueOf(200));
+        } else {
+            return authenticate(new AuthenticationRequest(userToBeUpdated.getEmail(), request.getPassword()));
         }
     }
 
+    private String saveProfileImage(User user, MultipartFile profileImage) {
+        String uploadDir = "static/img/users";
+
+        try {
+            String originalFilename = profileImage.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String fileName = user.getFirstname() + "_" + user.getLastname() + extension;
+
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.copy(profileImage.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            return filePath.toString();  // Return the file path
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception (e.g., log it or throw a custom exception)
+            return null;  // Or throw an exception, depending on your error handling strategy
+        }
+    }
 
 }

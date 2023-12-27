@@ -54,6 +54,11 @@ public class LecturerService implements ILecturerService {
             }
 
             @Override
+            public String getDescription() {
+                return lecturerFromDB.getDescription();
+            }
+
+            @Override
             public String getProfilePicture() {
                 return lecturerFromDB.getProfilePicture();
             }

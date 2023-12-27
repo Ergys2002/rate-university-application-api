@@ -10,6 +10,7 @@ public interface LecturerResponse {
      String getLastName();
      String getEmail();
      double getRating();
+     String getDescription();
      String getProfilePicture();
 
 }

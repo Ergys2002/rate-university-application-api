@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -47,11 +48,10 @@ public class UserController {
     @GetMapping("/user/logged-in-user")
     public UserResponse getLoggedInUser(){return userService.getCurrentUser();}
 
-    @PutMapping("/user/update-profile")
+    @PutMapping(value = "/user/update-profile", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<AuthenticationResponse> updateUserProfile(
-            @RequestBody UpdateUserRequest request) {
-
-       return userService.updateUser(request);
-
+            @RequestPart("profilePhoto") MultipartFile profilePhoto,
+            @RequestPart("updateUserRequest") UpdateUserRequest request) {
+        return userService.updateUser(request, profilePhoto);
     }
 }
