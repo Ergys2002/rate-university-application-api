@@ -1,0 +1,5 @@
+![Screenshot_3](https://github.com/Ergys2002/rate-university-application-api/assets/133498622/87ea36e2-3772-412d-99bc-e4c046d422e1)
+![Screenshot_2](https://github.com/Ergys2002/rate-university-application-api/assets/133498622/e0ede4e5-a0c8-45bc-8b79-b1249c236658)
+![Screenshot_1](https://github.com/Ergys2002/rate-university-application-api/assets/133498622/18fbce69-9cf5-4cc5-8878-e260eb96cd07)
+![Screenshot_73](https://github.com/Ergys2002/rate-university-application-api/assets/133498622/34780988-dee7-486b-b93f-4da252700b2b)
+![Screenshot_4](https://github.com/Ergys2002/rate-university-application-api/assets/133498622/fad0e8bd-fcdc-4ce0-80f2-afc80214143b)
