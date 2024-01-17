@@ -111,6 +111,14 @@ public class UserService implements IUserService {
 
         String jwtToken = jwtService.generateToken(user);
 
+        LocalDate localDate = jwtService.extractAllClaims(jwtToken)
+                .getExpiration()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        System.out.println(localDate);
+
         return new ResponseEntity<>(AuthenticationResponse.builder()
                 .token(jwtToken)
                 .message("Logged in Succesfully")

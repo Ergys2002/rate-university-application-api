@@ -24,7 +24,7 @@ public class UserController {
 
     private final IUserService userService;
 
-    @PostMapping(path = "/drop-course",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/drop-course")
     public void dropCourse(@RequestBody EnrollRequest enrollRequest){
         userService.dropCourse(UUID.fromString(enrollRequest.getCourseId()),
                 enrollRequest.getEmail());

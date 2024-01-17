@@ -65,7 +65,6 @@ public class CourseService implements ICourseService {
 
         course.setRegisteredStudents(users);
         course.setEnrolledStudents(userRepository.getUsersByEnrolledCoursesContains(course).size());
-
         courseRepository.save(course);
 
 //        Course course = courseRepository.getCourseById(courseId);

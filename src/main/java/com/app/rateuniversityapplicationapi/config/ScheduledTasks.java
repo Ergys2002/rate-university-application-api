@@ -12,9 +12,8 @@ public class ScheduledTasks {
 
     private final IReviewService reviewService;
 
-    // Schedule task to delete old reviews daily
-//    @Scheduled(cron = "*/10 * * * * *") // Runs every 10 seconds
-//    public void deleteOldReviewsTask() {
-//        reviewService.deleteOldReviews();
-//    }
+    @Scheduled(cron = "*/10 * * * * *") // Runs every 10 seconds
+    public void deleteOldReviewsTask() {
+        reviewService.deleteOldReviews();
+    }
 }

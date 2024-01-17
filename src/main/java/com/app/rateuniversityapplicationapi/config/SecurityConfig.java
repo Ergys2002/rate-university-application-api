@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/img/lecturers/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/img/courses/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/img/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

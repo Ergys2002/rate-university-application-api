@@ -57,7 +57,7 @@ public class CourseController {
         return courseService.getNumberOfCourses();
     }
 
-    @PostMapping(path = "/enroll",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/enroll")
     public void addStudent(@RequestBody EnrollRequest enrollRequest){
         courseService.appendUser(
                 enrollRequest.getEmail(),
