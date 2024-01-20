@@ -16,7 +16,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
 public class ReviewController {
-   //prove
     private final IReviewService reviewService;
 
     @GetMapping

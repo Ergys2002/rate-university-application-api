@@ -16,7 +16,6 @@ import java.util.List;
 @Controller()
 @RequiredArgsConstructor
 @RequestMapping("/api/schedule")
-@Data
 public class CourseScheduleController {
 
     private final CourseScheduleService  courseScheduleService;

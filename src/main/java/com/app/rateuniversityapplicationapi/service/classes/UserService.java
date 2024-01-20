@@ -136,7 +136,7 @@ public class UserService implements IUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()) {
-            return null; // No user authenticated
+            return null;
         }
 
         User userFromDb = userRepository.findByEmail(authentication.getName());
@@ -198,6 +198,7 @@ public class UserService implements IUserService {
     public ResponseEntity<AuthenticationResponse> updateUser(UpdateUserRequest request) {
         System.out.println(request);
         String email = getCurrentUser().getEmail();
+
         User userToBeUpdated = userRepository.findByEmail(email);
 
         userToBeUpdated.setFirstname(request.getFirstname());
@@ -225,7 +226,7 @@ public class UserService implements IUserService {
         }
     }
 
-    private String saveProfileImage(User user, MultipartFile profileImage) {
+    String saveProfileImage(User user, MultipartFile profileImage) {
 
 
         File uploadRootDir = new File("src/main/resources/static/img/users");
@@ -253,5 +254,7 @@ public class UserService implements IUserService {
             return null;  // Or throw an exception, depending on your error handling strategy
         }
     }
+
+
 
 }

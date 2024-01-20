@@ -772,7 +772,7 @@ public class InitialDataPersistance implements CommandLineRunner {
     }
 
 
-    private void createLecturerIfNotPresent(
+    void createLecturerIfNotPresent(
             String firstName,
             String lastName,
             String email,
@@ -823,7 +823,7 @@ public class InitialDataPersistance implements CommandLineRunner {
 
     }
 
-    private void createCourseScheduleIfNotPresent(
+    void createCourseScheduleIfNotPresent(
             String lectureHall,
             LocalDate courseDate,
             LocalTime courseTime,
